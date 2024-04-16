@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 @RequestMapping("/auth")
 public class AuthController {
 
-    @GetMapping("/")
+    @GetMapping("")
     public String authPage(Model model){
         return "authPage";
     }
