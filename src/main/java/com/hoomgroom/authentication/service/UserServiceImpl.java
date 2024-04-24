@@ -31,6 +31,15 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public Optional<User> findByEmail(String email) {
+        if (email == null || email.isEmpty()) {
+            LOGGER.warn("Invalid email provided for findByEmail");
+            return Optional.empty();
+        }
+        return userRepository.findByEmail(email);
+    }
+
+    @Override
     public User saveUser(User user) {
         if (user == null) {
             LOGGER.warn("Null user object provided for saveUser");
