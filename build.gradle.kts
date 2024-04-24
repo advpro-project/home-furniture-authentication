@@ -30,14 +30,15 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-validation")
 	implementation("org.postgresql:postgresql")
 	implementation("jakarta.persistence:jakarta.persistence-api:3.1.0")
+	implementation("io.jsonwebtoken:jjwt-api:0.11.2")
 	compileOnly("org.projectlombok:lombok")
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
 	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
+	testImplementation("org.junit.jupiter:junit-jupiter-engine:5.8.2")
+
 }
-
-
 
 tasks.withType<Test> {
 	useJUnitPlatform()
