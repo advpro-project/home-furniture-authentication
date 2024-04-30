@@ -1,16 +1,32 @@
 package com.hoomgroom.authentication.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import com.hoomgroom.authentication.model.AuthenticationRequest;
+import com.hoomgroom.authentication.model.AuthenticationResponse;
+import com.hoomgroom.authentication.model.RegisterRequest;
+import com.hoomgroom.authentication.service.AuthenticationService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.ui.Model;
 
-@Controller
+@RestController
 @RequestMapping("/auth")
+@RequiredArgsConstructor
 public class AuthController {
 
-    @GetMapping("")
-    public String authPage(Model model){
-        return "authPage";
+    private final AuthenticationService service;
+
+    @PostMapping("/register")
+    public ResponseEntity<AuthenticationResponse> register(
+            @RequestBody RegisterRequest request
+    ) {
+        return ResponseEntity.ok(service.register(request));
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<AuthenticationResponse> login(
+            @RequestBody AuthenticationRequest request
+    ) {
+        return ResponseEntity.ok(service.login(request));
     }
 }
