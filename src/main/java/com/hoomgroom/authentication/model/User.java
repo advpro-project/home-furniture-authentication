@@ -25,6 +25,7 @@ public class User implements UserDetails {
 
     private String fullName;
     private LocalDate dateOfBirth;
+    @Enumerated(EnumType.STRING)
     private Gender gender;
     private String username;
     @Id
