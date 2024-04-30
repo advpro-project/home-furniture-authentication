@@ -7,7 +7,7 @@ import org.springframework.ui.Model;
 
 @Controller
 @RequestMapping("/auth")
-public class AuthController {
+public class WebController {
 
     @GetMapping("")
     public String authPage(Model model){
