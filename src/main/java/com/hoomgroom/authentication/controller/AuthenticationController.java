@@ -7,12 +7,11 @@ import com.hoomgroom.authentication.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.ui.Model;
 
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
-public class AuthController {
+public class AuthenticationController {
 
     private final AuthenticationService service;
 
