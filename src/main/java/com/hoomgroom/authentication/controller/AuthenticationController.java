@@ -1,7 +1,7 @@
 package com.hoomgroom.authentication.controller;
 
-import com.hoomgroom.authentication.model.AuthenticationRequest;
-import com.hoomgroom.authentication.model.AuthenticationResponse;
+import com.hoomgroom.authentication.model.LoginRequest;
+import com.hoomgroom.authentication.model.LoginResponse;
 import com.hoomgroom.authentication.model.RegisterRequest;
 import com.hoomgroom.authentication.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
@@ -16,15 +16,15 @@ public class AuthenticationController {
     private final AuthenticationService service;
 
     @PostMapping("/register")
-    public ResponseEntity<AuthenticationResponse> register(
+    public ResponseEntity<LoginResponse> register(
             @RequestBody RegisterRequest request
     ) {
         return ResponseEntity.ok(service.register(request));
     }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthenticationResponse> login(
-            @RequestBody AuthenticationRequest request
+    public ResponseEntity<LoginResponse> login(
+            @RequestBody LoginRequest request
     ) {
         return ResponseEntity.ok(service.login(request));
     }

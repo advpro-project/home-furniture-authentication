@@ -1,8 +1,8 @@
 package com.hoomgroom.authentication.service;
 
 import com.hoomgroom.authentication.config.JwtService;
-import com.hoomgroom.authentication.model.AuthenticationRequest;
-import com.hoomgroom.authentication.model.AuthenticationResponse;
+import com.hoomgroom.authentication.model.LoginRequest;
+import com.hoomgroom.authentication.model.LoginResponse;
 import com.hoomgroom.authentication.model.RegisterRequest;
 import com.hoomgroom.authentication.model.User;
 import com.hoomgroom.authentication.repository.UserRepository;
@@ -22,7 +22,7 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    public AuthenticationResponse register(RegisterRequest request) {
+    public LoginResponse register(RegisterRequest request) {
         var user = User.builder()
                 .fullName(request.getFullName())
                 .email(request.getEmail())
@@ -33,12 +33,12 @@ public class AuthenticationService {
 
         var jwtToken = jwtService.generateToken(user);
 
-        return AuthenticationResponse.builder()
+        return LoginResponse.builder()
                 .token(jwtToken)
                 .build();
     }
 
-    public AuthenticationResponse login(AuthenticationRequest request) {
+    public LoginResponse login(LoginRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(
                         request.getEmail(),
@@ -49,7 +49,7 @@ public class AuthenticationService {
         var user = repository.findByEmail(request.getEmail()).orElseThrow();
         var jwtToken = jwtService.generateToken(user);
 
-        return AuthenticationResponse.builder()
+        return LoginResponse.builder()
                 .token(jwtToken)
                 .build();
     }
