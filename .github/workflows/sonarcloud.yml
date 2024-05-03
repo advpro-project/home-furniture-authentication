@@ -39,7 +39,7 @@ jobs:
           cache: "gradle"
 
       - name: Build with Gradle
-        run: ./gradlew build
+        run: ./gradlew build -Dspring.profiles.active=test
         env:
           POSTGRES_HOST: localhost
           POSTGRES_PORT: 5432
