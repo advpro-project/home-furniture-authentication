@@ -45,6 +45,7 @@ tasks.withType<Test> {
 
 tasks.test {
 	filter {
+		//ayampargoy
 		excludeTestsMatching("*FunctionalTest")
 	}
 

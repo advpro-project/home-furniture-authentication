@@ -18,6 +18,12 @@ jobs:
           distribution: "temurin"
           java-version: "21"
           cache: "gradle"
+      - name: Configure PostgreSQL
+        uses: docker://postgres:latest
+        env:
+          POSTGRES_USER: ${{ secrets.JDBC_DATABASE_USERNAME }}
+          POSTGRES_PASSWORD: ${{ secrets.JDBC_DATABASE_PASSWORD }}
+          POSTGRES_HOST_AUTH_METHOD: trust
       - name: Run unit tests
         run: |
           ./gradlew test
