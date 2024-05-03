@@ -46,6 +46,16 @@ jobs:
       - name: Check out the Git repository
         uses: actions/checkout@v4
 
+      - name: Set up Environment Variables
+        run: |
+          echo "SONAR_HOST_URL=https://sonarcloud.io" >> $GITHUB_ENV
+          echo "SONAR_TOKEN=${{ secrets.SONAR_TOKEN }}" >> $GITHUB_ENV
+          echo "SONAR_PROJECT_KEY=advpro-project_home-furniture-authentication" >> $GITHUB_ENV
+          echo "SONAR_PROJECT_ORGANIZATION=advpro-project" >> $GITHUB_ENV
+          echo "SONAR_JDBC_URL=${{ secrets.JDBC_DATABASE_URL }}" >> $GITHUB_ENV
+          echo "SONAR_JDBC_USERNAME=${{ secrets.JDBC_DATABASE_USERNAME }}" >> $GITHUB_ENV
+          echo "SONAR_JDBC_PASSWORD=${{ secrets.JDBC_DATABASE_PASSWORD }}" >> $GITHUB_ENV
+
       - name: Set up Java toolchain
         uses: actions/setup-java@v4
         with:
@@ -57,27 +67,25 @@ jobs:
         run: ./gradlew build
 
       - name: Analyze with SonarCloud
-
         # You can pin the exact commit or the version.
         uses: SonarSource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}   # Generate a token on Sonarcloud.io, add it to the secrets of this repo with the name SONAR_TOKEN (Settings > Secrets > Actions > add new repository secret)
+          SONAR_HOST_URL: ${{ env.SONAR_HOST_URL }}
+          SONAR_PROJECT_KEY: ${{ env.SONAR_PROJECT_KEY }}
+          SONAR_ORGANIZATION: ${{ env.SONAR_PROJECT_ORGANIZATION }}
+          SONAR_JDBC_URL: ${{ env.SONAR_JDBC_URL }}
+          SONAR_JDBC_USERNAME: ${{ env.SONAR_JDBC_USERNAME }}
+          SONAR_JDBC_PASSWORD: ${{ env.SONAR_JDBC_PASSWORD }}
         with:
           # Additional arguments for the sonarcloud scanner
           args:
             # Unique keys of your project and organization. You can find them in SonarCloud > Information (bottom-left menu)
             # mandatory
-            -Dsonar.projectKey=advpro-project_home-furniture-authentication
-            -Dsonar.organization=advpro-project
+            -Dsonar.projectKey=$SONAR_PROJECT_KEY
+            -Dsonar.organization=$SONAR_ORGANIZATION
+            -Dsonar.host.url=$SONAR_HOST_URL
             -Dsonar.java.binaries=.
             -Dsonar.sources=src/main/java
             -Dsonar.tests=src/test/java
-            # Comma-separated paths to directories containing main source files.
-            #-Dsonar.sources= # optional, default is project base directory
-            # When you need the analysis to take place in a directory other than the one from which it was launched
-            #-Dsonar.projectBaseDir= # optional, default is .
-            # Comma-separated paths to directories containing test source files.
-            #-Dsonar.tests= # optional. For more info about Code Coverage, please refer to https://docs.sonarcloud.io/enriching/test-coverage/overview/
-            # Adds more detail to both client and server-side analysis logs, activating DEBUG mode for the scanner, and adding client-side environment variables and system properties to the server-side log of analysis report processing.
-          #-Dsonar.verbose= # optional, default is false
