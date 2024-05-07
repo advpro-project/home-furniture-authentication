@@ -1,17 +1,21 @@
 package com.hoomgroom.authentication.service;
 
 import com.hoomgroom.authentication.config.JwtService;
-import com.hoomgroom.authentication.model.LoginRequest;
-import com.hoomgroom.authentication.model.LoginResponse;
-import com.hoomgroom.authentication.model.RegisterRequest;
+import com.hoomgroom.authentication.dto.LoginRequest;
+import com.hoomgroom.authentication.dto.LoginResponse;
+import com.hoomgroom.authentication.dto.RegisterRequest;
 import com.hoomgroom.authentication.model.User;
 import com.hoomgroom.authentication.repository.UserRepository;
+import enums.Gender;
 import enums.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Service
 @RequiredArgsConstructor
@@ -25,9 +29,12 @@ public class AuthenticationService {
     public LoginResponse register(RegisterRequest request) {
         var user = User.builder()
                 .fullName(request.getFullName())
+                .dateOfBirth(LocalDate.parse(request.getDateOfBirth(), DateTimeFormatter.ofPattern("yyyy-MM-dd")))
+                .gender(Gender.valueOf(request.getGender()))
+                .username(request.getUsername())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.PEMBELI)
+                .role(Role.valueOf(request.getRole()))
                 .build();
         repository.save(user);
 

@@ -1,8 +1,8 @@
 package com.hoomgroom.authentication.controller;
 
-import com.hoomgroom.authentication.model.LoginRequest;
-import com.hoomgroom.authentication.model.LoginResponse;
-import com.hoomgroom.authentication.model.RegisterRequest;
+import com.hoomgroom.authentication.dto.LoginRequest;
+import com.hoomgroom.authentication.dto.LoginResponse;
+import com.hoomgroom.authentication.dto.RegisterRequest;
 import com.hoomgroom.authentication.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
