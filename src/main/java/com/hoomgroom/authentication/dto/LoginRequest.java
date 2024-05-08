@@ -1,4 +1,4 @@
-package com.hoomgroom.authentication.model;
+package com.hoomgroom.authentication.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
