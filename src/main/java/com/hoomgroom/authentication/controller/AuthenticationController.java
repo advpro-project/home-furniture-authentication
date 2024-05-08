@@ -6,7 +6,12 @@ import com.hoomgroom.authentication.dto.RegisterRequest;
 import com.hoomgroom.authentication.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.concurrent.CompletableFuture;
 
 @RestController
 @RequestMapping("/auth")
@@ -16,16 +21,18 @@ public class AuthenticationController {
     private final AuthenticationService service;
 
     @PostMapping("/register")
-    public ResponseEntity<LoginResponse> register(
+    public CompletableFuture<ResponseEntity<LoginResponse>> register(
             @RequestBody RegisterRequest request
     ) {
-        return ResponseEntity.ok(service.register(request));
+        return service.register(request)
+                .thenApply(ResponseEntity::ok);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> login(
+    public CompletableFuture<ResponseEntity<LoginResponse>> login(
             @RequestBody LoginRequest request
     ) {
-        return ResponseEntity.ok(service.login(request));
+        return service.login(request)
+                .thenApply(ResponseEntity::ok);
     }
 }

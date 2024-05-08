@@ -13,9 +13,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-
+import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.concurrent.CompletableFuture;
 
 @Service
 @RequiredArgsConstructor
@@ -26,38 +27,40 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
 
-    public LoginResponse register(RegisterRequest request) {
-        var user = User.builder()
-                .fullName(request.getFullName())
-                .dateOfBirth(LocalDate.parse(request.getDateOfBirth(), DateTimeFormatter.ofPattern("yyyy-MM-dd")))
-                .gender(Gender.valueOf(request.getGender()))
-                .username(request.getUsername())
-                .email(request.getEmail())
-                .password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.valueOf(request.getRole()))
-                .build();
-        repository.save(user);
-
-        var jwtToken = jwtService.generateToken(user);
-
-        return LoginResponse.builder()
-                .token(jwtToken)
-                .build();
+    @Transactional
+    public CompletableFuture<LoginResponse> register(RegisterRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            var user = User.builder()
+                    .fullName(request.getFullName())
+                    .dateOfBirth(LocalDate.parse(request.getDateOfBirth(), DateTimeFormatter.ofPattern("yyyy-MM-dd")))
+                    .gender(Gender.valueOf(request.getGender()))
+                    .username(request.getUsername())
+                    .email(request.getEmail())
+                    .password(passwordEncoder.encode(request.getPassword()))
+                    .role(Role.valueOf(request.getRole()))
+                    .build();
+            repository.save(user);
+            var jwtToken = jwtService.generateToken(user);
+            return LoginResponse.builder()
+                    .token(jwtToken)
+                    .build();
+        });
     }
 
-    public LoginResponse login(LoginRequest request) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getEmail(),
-                        request.getPassword()
-                )
-        );
-
-        var user = repository.findByEmail(request.getEmail()).orElseThrow();
-        var jwtToken = jwtService.generateToken(user);
-
-        return LoginResponse.builder()
-                .token(jwtToken)
-                .build();
+    @Transactional
+    public CompletableFuture<LoginResponse> login(LoginRequest request) {
+        return CompletableFuture.supplyAsync(() -> {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            request.getEmail(),
+                            request.getPassword()
+                    )
+            );
+            var user = repository.findByEmail(request.getEmail()).orElseThrow();
+            var jwtToken = jwtService.generateToken(user);
+            return LoginResponse.builder()
+                    .token(jwtToken)
+                    .build();
+        });
     }
 }
