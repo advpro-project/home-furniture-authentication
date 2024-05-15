@@ -3,6 +3,7 @@ plugins {
 	jacoco
 	id("org.springframework.boot") version "3.2.4"
 	id("io.spring.dependency-management") version "1.1.4"
+	id("org.sonarqube") version "4.4.1.3373"
 }
 
 group = "com.hoomgroom"
@@ -22,6 +23,14 @@ repositories {
 	mavenCentral()
 }
 
+sonar {
+	properties {
+		property("sonar.projectKey", "advpro-project_home-furniture-authentication")
+		property("sonar.organization", "advpro-project")
+		property("sonar.host.url", "https://sonarcloud.io")
+	}
+}
+
 dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 	implementation("org.springframework.boot:spring-boot-starter-web")
@@ -37,6 +46,7 @@ dependencies {
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
+	testImplementation("com.h2database:h2")
 }
 
 tasks.withType<Test> {
@@ -57,8 +67,8 @@ tasks.jacocoTestReport {
 	}))
 	dependsOn(tasks.test)
 	reports {
+		html.required.set(true)
 		xml.required.set(true)
 		csv.required.set(true)
-		html.outputLocation.set(layout.buildDirectory.dir("jacocoHtml"))
 	}
 }
