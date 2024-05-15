@@ -16,7 +16,7 @@ jobs:
         uses: actions/setup-java@v4
         with:
           distribution: "temurin"
-          java-version: "17"
+          java-version: "22"
           cache: "gradle"
       - name: Run tests with H2 database
         run: ./gradlew test -Dspring.profiles.active=test
