@@ -26,7 +26,9 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .requestMatchers(
                         "/auth/**",
-                        "/"
+                        "/",
+                        "/actuator",
+                        "/actuator/*"
                 )
                 .permitAll()
                 .anyRequest()

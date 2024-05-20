@@ -1,4 +1,4 @@
-package com.hoomgroom.authentication.config;
+package com.hoomgroom.authentication.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtParser;

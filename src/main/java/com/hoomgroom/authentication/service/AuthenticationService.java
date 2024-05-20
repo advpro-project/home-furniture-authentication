@@ -1,19 +1,22 @@
 package com.hoomgroom.authentication.service;
 
-import com.hoomgroom.authentication.config.JwtService;
 import com.hoomgroom.authentication.dto.LoginRequest;
 import com.hoomgroom.authentication.dto.LoginResponse;
 import com.hoomgroom.authentication.dto.RegisterRequest;
-import com.hoomgroom.authentication.model.User;
+import com.hoomgroom.authentication.model.UserBuilder;
 import com.hoomgroom.authentication.repository.UserRepository;
+
 import enums.Gender;
 import enums.Role;
+
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.CompletableFuture;
@@ -30,7 +33,7 @@ public class AuthenticationService {
     @Transactional
     public CompletableFuture<LoginResponse> register(RegisterRequest request) {
         return CompletableFuture.supplyAsync(() -> {
-            var user = User.builder()
+            var user = new UserBuilder()
                     .fullName(request.getFullName())
                     .dateOfBirth(LocalDate.parse(request.getDateOfBirth(), DateTimeFormatter.ofPattern("yyyy-MM-dd")))
                     .gender(Gender.valueOf(request.getGender()))

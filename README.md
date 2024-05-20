@@ -17,5 +17,3 @@ Membuat _instance_ `JwtParser` sekali saja dalam _constructor_ untuk mengurangi 
 Saya melakukan _profiling_ lagi dan mendapatkan hasil sebagai berikut:
 ![img.png](image/img3.png)
 Diperoleh waktu yang sedikit lebih cepat yaitu **10 ms**.
-
-## Monitoring

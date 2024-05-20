@@ -1,5 +1,6 @@
 package com.hoomgroom.authentication.config;
 
+import com.hoomgroom.authentication.service.JwtService;
 import io.micrometer.common.lang.NonNull;
 
 import jakarta.servlet.FilterChain;

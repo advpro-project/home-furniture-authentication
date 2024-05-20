@@ -17,7 +17,7 @@ class UserTest {
 
     @BeforeEach
     void setUp() {
-        user = User.builder()
+        user = new UserBuilder()
                 .fullName("Ayam Sigma")
                 .dateOfBirth(LocalDate.of(1990, 1, 1))
                 .gender(Gender.MALE)
