@@ -124,4 +124,49 @@ class RegisterRequestTest {
         assertTrue(registerRequest.canEqual(anotherRegisterRequest));
         assertFalse(registerRequest.canEqual(new Object()));
     }
+
+    @Test
+    public void testEqualsSameObject() {
+        assertEquals(registerRequest, registerRequest);
+    }
+
+    @Test
+    public void testEqualsDifferentObjectsWithSameValues() {
+        RegisterRequest anotherRegisterRequest = RegisterRequest.builder()
+                .fullName("Ayam Sigma")
+                .dateOfBirth("1990-01-01")
+                .gender("MALE")
+                .username("ayamSigma")
+                .email("ayamsigma@gmail.com")
+                .password("ayamsigma@gmail.com")
+                .role("PEMBELI")
+                .build();
+
+        assertEquals(registerRequest, anotherRegisterRequest);
+    }
+
+    @Test
+    public void testEqualsDifferentObjectsWithDifferentValues() {
+        RegisterRequest anotherRegisterRequest = RegisterRequest.builder()
+                .fullName("Ayam Kappa")
+                .dateOfBirth("1991-01-01")
+                .gender("FEMALE")
+                .username("ayamKappa")
+                .email("ayamkappa@gmail.com")
+                .password("ayamkappa@gmail.com")
+                .role("ADMIN")
+                .build();
+
+        assertNotEquals(registerRequest, anotherRegisterRequest);
+    }
+
+    @Test
+    public void testEqualsWithNull() {
+        assertFalse(registerRequest.equals(null));
+    }
+
+    @Test
+    public void testEqualsWithDifferentType() {
+        assertFalse(registerRequest.equals("Not a RegisterRequest"));
+    }
 }

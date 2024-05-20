@@ -41,12 +41,17 @@ dependencies {
 	implementation("io.jsonwebtoken:jjwt-impl:0.11.5")
 	implementation("io.jsonwebtoken:jjwt-jackson:0.11.5")
 	implementation("org.thymeleaf.extras:thymeleaf-extras-springsecurity6")
+
 	compileOnly("org.projectlombok:lombok")
+
 	runtimeOnly("org.postgresql:postgresql")
 	runtimeOnly("io.micrometer:micrometer-registry-prometheus:1.12.5")
+
 	developmentOnly("org.springframework.boot:spring-boot-devtools")
+
 	annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
 	annotationProcessor("org.projectlombok:lombok")
+
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
 	testImplementation("com.h2database:h2")
