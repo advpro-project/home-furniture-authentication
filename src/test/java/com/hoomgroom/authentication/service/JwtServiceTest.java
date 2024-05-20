@@ -72,11 +72,9 @@ public class JwtServiceTest {
                 .build();
 
         String token = jwtService.generateToken(userDetails);
+        String finalToken = token + "invalid";
 
-        // Modify the token to invalidate it
-        token += "invalid";
-
-        assertFalse(jwtService.isTokenValid(token, userDetails));
+        assertThrows(io.jsonwebtoken.security.SignatureException.class, () -> jwtService.isTokenValid(finalToken, userDetails));
     }
 
     @Test
