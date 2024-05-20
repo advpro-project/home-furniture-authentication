@@ -5,154 +5,156 @@ import enums.Role;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.time.LocalDate;
 import java.util.Collection;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class UserTest {
+public class UserTest {
 
-    User user;
+    private User user;
 
     @BeforeEach
     void setUp() {
-        user = new UserBuilder()
-                .fullName("Ayam Sigma")
-                .dateOfBirth(LocalDate.of(1990, 1, 1))
-                .gender(Gender.MALE)
-                .username("ayamSigma")
-                .email("ayam.sigma@gmail.com")
-                .password("sigma")
-                .role(Role.PEMBELI)
-                .walletBalance(100.0)
-                .build();
+        user = new User(
+                "Ayam Sigma",
+                LocalDate.of(1990, 5, 15),
+                Gender.MALE,
+                "ayamsigma",
+                "ayamsigma@example.com",
+                "password",
+                Role.ADMIN,
+                100.0
+        );
     }
 
     @Test
-    void testGetFullName() {
+    public void testConstructorAndGetters() {
         assertEquals("Ayam Sigma", user.getFullName());
-    }
-
-    @Test
-    void testSetFullName() {
-        user.setFullName("Sapi Sigma");
-        assertEquals("Sapi Sigma", user.getFullName());
-    }
-
-    @Test
-    void testGetDateOfBirth() {
-        assertEquals(LocalDate.of(1990, 1, 1), user.getDateOfBirth());
-    }
-
-    @Test
-    void testSetDateOfBirth() {
-        user.setDateOfBirth(LocalDate.of(2000, 1, 1));
-        assertEquals(LocalDate.of(2000, 1, 1), user.getDateOfBirth());
-    }
-
-    @Test
-    void testGetGender() {
+        assertEquals(LocalDate.of(1990, 5, 15), user.getDateOfBirth());
         assertEquals(Gender.MALE, user.getGender());
-    }
-
-    @Test
-    void testSetGender() {
-        user.setGender(Gender.FEMALE);
-        assertEquals(Gender.FEMALE, user.getGender());
-    }
-
-    @Test
-    void testGetUsername() {
-        assertEquals("ayam.sigma@gmail.com", user.getUsername());
-    }
-
-    @Test
-    void testSetUsername() {
-        user.setEmail("sapi.sigma@gmail.com");
-        assertEquals("sapi.sigma@gmail.com", user.getUsername());
-    }
-
-    @Test
-    void testGetRealUsername() {
-        assertEquals("ayamSigma", user.getRealUsername());
-    }
-
-    @Test
-    void testSetRealUsername() {
-        user.setUsername("sapiSigma");
-        assertEquals("sapiSigma", user.getRealUsername());
-    }
-
-    @Test
-    void testGetEmail() {
-        assertEquals("ayam.sigma@gmail.com", user.getEmail());
-    }
-
-    @Test
-    void testSetEmail() {
-        user.setEmail("sapi.sigma@gmail.com");
-        assertEquals("sapi.sigma@gmail.com", user.getEmail());
-    }
-
-    @Test
-    void testGetPassword() {
-        assertEquals("sigma", user.getPassword());
-    }
-
-    @Test
-    void testSetPassword() {
-        user.setPassword("newsigma");
-        assertEquals("newsigma", user.getPassword());
-    }
-
-    @Test
-    void testGetRole() {
-        assertEquals(Role.PEMBELI, user.getRole());
-    }
-
-    @Test
-    void testSetRole() {
-        user.setRole(Role.ADMIN);
+        assertEquals("ayamsigma@example.com", user.getUsername());
+        assertEquals("ayamsigma@example.com", user.getEmail());
+        assertEquals("password", user.getPassword());
         assertEquals(Role.ADMIN, user.getRole());
-    }
-
-    @Test
-    void testGetWalletBalance() {
         assertEquals(100.0, user.getWalletBalance());
     }
 
     @Test
-    void testSetWalletBalance() {
-        user.setWalletBalance(200.0);
-        assertEquals(200.0, user.getWalletBalance());
+    public void testEqualsSameObject() {
+        assertEquals(user, user);
     }
 
     @Test
-    void testGetAuthorities() {
+    public void testEqualsDifferentObjectsWithSameValues() {
+        User anotherUser = new User(
+                "Ayam Sigma",
+                LocalDate.of(1990, 5, 15),
+                Gender.MALE,
+                "ayamsigma",
+                "ayamsigma@example.com",
+                "password",
+                Role.ADMIN,
+                100.0
+        );
+
+        assertEquals(user, anotherUser);
+    }
+
+    @Test
+    public void testEqualsDifferentObjectsWithDifferentValues() {
+        User anotherUser = new User(
+                "Ayam Sigma",
+                LocalDate.of(1995, 10, 20),
+                Gender.FEMALE,
+                "ayamsigma2",
+                "ayamsigma2@example.com",
+                "password123",
+                Role.PEMBELI,
+                200.0
+        );
+
+        assertNotEquals(user, anotherUser);
+    }
+
+    @Test
+    public void testEqualsWithNull() {
+        assertFalse(user.equals(null));
+    }
+
+    @Test
+    public void testEqualsWithDifferentType() {
+        assertFalse(user.equals("Not a User"));
+    }
+
+    @Test
+    public void testHashCodeSameObjects() {
+        User sameUser = new User(
+                "Ayam Sigma",
+                LocalDate.of(1990, 5, 15),
+                Gender.MALE,
+                "ayamsigma",
+                "ayamsigma@example.com",
+                "password",
+                Role.ADMIN,
+                100.0
+        );
+
+        assertEquals(user.hashCode(), sameUser.hashCode());
+    }
+
+    @Test
+    public void testHashCodeDifferentObjects() {
+        User anotherUser = new User(
+                "Ayam Sigma",
+                LocalDate.of(1995, 10, 20),
+                Gender.FEMALE,
+                "ayamsigma2",
+                "ayamsigma2@example.com",
+                "password123",
+                Role.PEMBELI,
+                200.0
+        );
+
+        assertNotEquals(user.hashCode(), anotherUser.hashCode());
+    }
+
+    @Test
+    public void testGetAuthorities() {
         Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
-        assertNotNull(authorities);
         assertEquals(1, authorities.size());
-        assertEquals(Role.PEMBELI.getValue(), authorities.iterator().next().getAuthority());
+        assertTrue(authorities.contains(new SimpleGrantedAuthority(Role.ADMIN.getValue())));
     }
 
     @Test
-    void testIsAccountNonExpired() {
+    public void testGetUsername() {
+        assertEquals("ayamsigma@example.com", user.getUsername());
+    }
+
+    @Test
+    public void testGetRealUsername() {
+        assertEquals("ayamsigma", user.getRealUsername());
+    }
+
+    @Test
+    public void testIsAccountNonExpired() {
         assertTrue(user.isAccountNonExpired());
     }
 
     @Test
-    void testIsAccountNonLocked() {
+    public void testIsAccountNonLocked() {
         assertTrue(user.isAccountNonLocked());
     }
 
     @Test
-    void testIsCredentialsNonExpired() {
+    public void testIsCredentialsNonExpired() {
         assertTrue(user.isCredentialsNonExpired());
     }
 
     @Test
-    void testIsEnabled() {
+    public void testIsEnabled() {
         assertTrue(user.isEnabled());
     }
 }
