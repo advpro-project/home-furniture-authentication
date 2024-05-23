@@ -35,19 +35,17 @@ public class LoginResponseTest {
 
     @Test
     public void testAllArgsConstructor() {
-        User user = new User(
-                "Ayam Sigma",
-                LocalDate.of(1990, 5, 15),
-                Gender.MALE,
-                "ayamsigma",
-                "ayamsigma@example.com",
-                "password",
-                Role.ADMIN,
-                100.0,
-                null
-        );
+        UserData userData = UserData.builder()
+                .fullName("dummyName")
+                .dateOfBirth(LocalDate.now())
+                .gender(Gender.MALE)
+                .username("dummyUsername")
+                .email("dummyEmail@gmail.com")
+                .role(Role.PEMBELI)
+                .walletBalance(0.0)
+                .build();
 
-        LoginResponse fullLoginResponse = new LoginResponse("exampleToken", user);
+        LoginResponse fullLoginResponse = new LoginResponse("exampleToken", userData);
 
         assertEquals("exampleToken", fullLoginResponse.getToken());
     }
