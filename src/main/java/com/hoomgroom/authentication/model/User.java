@@ -32,6 +32,8 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
     private double walletBalance;
+    @OneToMany(mappedBy = "user")
+    private List<Token> tokens;
 
     User(UserBuilder builder) {
         this.fullName = builder.fullName;
@@ -42,6 +44,7 @@ public class User implements UserDetails {
         this.password = builder.password;
         this.role = builder.role;
         this.walletBalance = builder.walletBalance;
+        this.tokens = builder.tokens;
     }
 
     @Override

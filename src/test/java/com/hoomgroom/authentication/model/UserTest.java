@@ -26,7 +26,8 @@ public class UserTest {
                 "ayamsigma@example.com",
                 "password",
                 Role.ADMIN,
-                100.0
+                100.0,
+                null
         );
     }
 
@@ -57,7 +58,8 @@ public class UserTest {
                 "ayamsigma@example.com",
                 "password",
                 Role.ADMIN,
-                100.0
+                100.0,
+                null
         );
 
         assertEquals(user, anotherUser);
@@ -73,7 +75,8 @@ public class UserTest {
                 "ayamsigma2@example.com",
                 "password123",
                 Role.PEMBELI,
-                200.0
+                200.0,
+                null
         );
 
         assertNotEquals(user, anotherUser);
@@ -99,7 +102,8 @@ public class UserTest {
                 "ayamsigma@example.com",
                 "password",
                 Role.ADMIN,
-                100.0
+                100.0,
+                null
         );
 
         assertEquals(user.hashCode(), sameUser.hashCode());
@@ -115,7 +119,8 @@ public class UserTest {
                 "ayamsigma2@example.com",
                 "password123",
                 Role.PEMBELI,
-                200.0
+                200.0,
+                null
         );
 
         assertNotEquals(user.hashCode(), anotherUser.hashCode());

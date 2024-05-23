@@ -4,6 +4,7 @@ import enums.Gender;
 import enums.Role;
 
 import java.time.LocalDate;
+import java.util.List;
 
 public class UserBuilder {
     String fullName;
@@ -14,6 +15,7 @@ public class UserBuilder {
     String password;
     Role role;
     double walletBalance;
+    List<Token> tokens;
 
     public UserBuilder() {}
 
@@ -54,6 +56,11 @@ public class UserBuilder {
 
     public UserBuilder walletBalance(double walletBalance) {
         this.walletBalance = walletBalance;
+        return this;
+    }
+
+    public UserBuilder tokens(List<Token> tokens) {
+        this.tokens = tokens;
         return this;
     }
 
