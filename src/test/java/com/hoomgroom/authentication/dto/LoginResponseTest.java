@@ -1,7 +1,12 @@
 package com.hoomgroom.authentication.dto;
 
+import com.hoomgroom.authentication.model.User;
+import enums.Gender;
+import enums.Role;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -30,7 +35,19 @@ public class LoginResponseTest {
 
     @Test
     public void testAllArgsConstructor() {
-        LoginResponse fullLoginResponse = new LoginResponse("exampleToken");
+        User user = new User(
+                "Ayam Sigma",
+                LocalDate.of(1990, 5, 15),
+                Gender.MALE,
+                "ayamsigma",
+                "ayamsigma@example.com",
+                "password",
+                Role.ADMIN,
+                100.0,
+                null
+        );
+
+        LoginResponse fullLoginResponse = new LoginResponse("exampleToken", user);
 
         assertEquals("exampleToken", fullLoginResponse.getToken());
     }

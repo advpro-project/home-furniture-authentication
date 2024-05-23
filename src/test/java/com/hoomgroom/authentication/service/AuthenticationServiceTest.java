@@ -1,5 +1,6 @@
 package com.hoomgroom.authentication.service;
 
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -12,6 +13,7 @@ import com.hoomgroom.authentication.dto.LoginRequest;
 import com.hoomgroom.authentication.dto.LoginResponse;
 import com.hoomgroom.authentication.dto.RegisterRequest;
 import com.hoomgroom.authentication.model.User;
+import com.hoomgroom.authentication.repository.TokenRepository; // Menambahkan import ini
 import com.hoomgroom.authentication.repository.UserRepository;
 import enums.Gender;
 import enums.Role;
@@ -34,9 +36,6 @@ class AuthenticationServiceTest {
 
     @Mock
     private JwtService jwtService;
-
-    @Mock
-    private AuthenticationManager authenticationManager;
 
     @InjectMocks
     private AuthenticationService authenticationService;
@@ -63,17 +62,16 @@ class AuthenticationServiceTest {
         user.setGender(Gender.valueOf(request.getGender()));
         user.setUsername(request.getUsername());
         user.setEmail(request.getEmail());
-        user.setPassword("encodedPassword"); // Dummy password, since we're mocking password encoder
+        user.setPassword("encodedPassword");
         user.setRole(Role.valueOf(request.getRole()));
 
         when(passwordEncoder.encode(request.getPassword())).thenReturn("encodedPassword");
         when(userRepository.save(any(User.class))).thenReturn(user);
-        when(jwtService.generateToken(any(User.class))).thenReturn("jwtToken");
 
-        CompletableFuture<LoginResponse> future = authenticationService.register(request);
-        LoginResponse response = future.join();
-
-        assertEquals("jwtToken", response.getToken());
+        assertDoesNotThrow(() -> {
+            CompletableFuture<Void> future = authenticationService.register(request);
+            future.join();
+        });
     }
 
     @Test
@@ -84,7 +82,7 @@ class AuthenticationServiceTest {
 
         User user = new User();
         user.setEmail(request.getEmail());
-        user.setPassword("encodedPassword"); // Dummy password, since we're mocking password encoder
+        user.setPassword("encodedPassword");
 
         when(userRepository.findByEmail(request.getEmail())).thenReturn(Optional.of(user));
         when(jwtService.generateToken(any(User.class))).thenReturn("jwtToken");

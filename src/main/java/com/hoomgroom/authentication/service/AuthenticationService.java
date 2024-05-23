@@ -36,8 +36,8 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     @Transactional
-    public CompletableFuture<LoginResponse> register(RegisterRequest request) {
-        return CompletableFuture.supplyAsync(() -> {
+    public CompletableFuture<Void> register(RegisterRequest request) {
+        return CompletableFuture.runAsync(() -> {
             var user = new UserBuilder()
                     .fullName(request.getFullName())
                     .dateOfBirth(LocalDate.parse(request.getDateOfBirth(), DateTimeFormatter.ofPattern("yyyy-MM-dd")))
@@ -47,12 +47,7 @@ public class AuthenticationService {
                     .password(passwordEncoder.encode(request.getPassword()))
                     .role(Role.valueOf(request.getRole()))
                     .build();
-            var savedUser = repository.save(user);
-            var jwtToken = jwtService.generateToken(user);
-            saveUserToken(savedUser, jwtToken);
-            return LoginResponse.builder()
-                    .token(jwtToken)
-                    .build();
+            repository.save(user);
         });
     }
 

@@ -18,7 +18,7 @@ public class AuthenticationController {
     private final AuthenticationService service;
 
     @PostMapping("/register")
-    public CompletableFuture<ResponseEntity<LoginResponse>> register(
+    public CompletableFuture<ResponseEntity<Void>> register(
             @RequestBody RegisterRequest request
     ) {
         return service.register(request)
