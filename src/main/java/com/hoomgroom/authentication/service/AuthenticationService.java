@@ -3,6 +3,7 @@ package com.hoomgroom.authentication.service;
 import com.hoomgroom.authentication.dto.LoginRequest;
 import com.hoomgroom.authentication.dto.LoginResponse;
 import com.hoomgroom.authentication.dto.RegisterRequest;
+import com.hoomgroom.authentication.dto.UserData;
 import com.hoomgroom.authentication.model.Token;
 import com.hoomgroom.authentication.model.User;
 import com.hoomgroom.authentication.model.UserBuilder;
@@ -66,6 +67,7 @@ public class AuthenticationService {
             saveUserToken(user, jwtToken);
             return LoginResponse.builder()
                     .token(jwtToken)
+                    .userData(convertToUserData(user))
                     .build();
         });
     }
@@ -90,5 +92,17 @@ public class AuthenticationService {
             t.setRevoked(true);
         });
         tokenRepository.saveAll(validUserToken);
+    }
+
+    private UserData convertToUserData(User user) {
+        return UserData.builder()
+                .fullName(user.getFullName())
+                .dateOfBirth(user.getDateOfBirth())
+                .gender(user.getGender())
+                .username(user.getRealUsername())
+                .email(user.getEmail())
+                .role(user.getRole())
+                .walletBalance(user.getWalletBalance())
+                .build();
     }
 }
