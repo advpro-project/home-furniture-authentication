@@ -8,7 +8,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -27,7 +29,7 @@ public class UserTest {
                 "password",
                 Role.ADMIN,
                 100.0,
-                null
+                new ArrayList<>()
         );
     }
 
@@ -36,11 +38,43 @@ public class UserTest {
         assertEquals("Ayam Sigma", user.getFullName());
         assertEquals(LocalDate.of(1990, 5, 15), user.getDateOfBirth());
         assertEquals(Gender.MALE, user.getGender());
-        assertEquals("ayamsigma@example.com", user.getUsername());
+        assertEquals("ayamsigma", user.getRealUsername());
         assertEquals("ayamsigma@example.com", user.getEmail());
         assertEquals("password", user.getPassword());
         assertEquals(Role.ADMIN, user.getRole());
         assertEquals(100.0, user.getWalletBalance());
+        assertNotNull(user.getTokens());
+    }
+
+    @Test
+    public void testSetters() {
+        user.setFullName("Ayam Omega");
+        assertEquals("Ayam Omega", user.getFullName());
+
+        user.setDateOfBirth(LocalDate.of(1995, 10, 20));
+        assertEquals(LocalDate.of(1995, 10, 20), user.getDateOfBirth());
+
+        user.setGender(Gender.FEMALE);
+        assertEquals(Gender.FEMALE, user.getGender());
+
+        user.setUsername("ayamomega");
+        assertEquals("ayamomega", user.getRealUsername());
+
+        user.setEmail("ayamomega@example.com");
+        assertEquals("ayamomega@example.com", user.getEmail());
+
+        user.setPassword("newpassword");
+        assertEquals("newpassword", user.getPassword());
+
+        user.setRole(Role.PEMBELI);
+        assertEquals(Role.PEMBELI, user.getRole());
+
+        user.setWalletBalance(200.0);
+        assertEquals(200.0, user.getWalletBalance());
+
+        List<Token> tokens = new ArrayList<>();
+        user.setTokens(tokens);
+        assertEquals(tokens, user.getTokens());
     }
 
     @Test
@@ -59,7 +93,7 @@ public class UserTest {
                 "password",
                 Role.ADMIN,
                 100.0,
-                null
+                new ArrayList<>()
         );
 
         assertEquals(user, anotherUser);
@@ -68,15 +102,15 @@ public class UserTest {
     @Test
     public void testEqualsDifferentObjectsWithDifferentValues() {
         User anotherUser = new User(
-                "Ayam Sigma",
+                "Ayam Omega",
                 LocalDate.of(1995, 10, 20),
                 Gender.FEMALE,
-                "ayamsigma2",
-                "ayamsigma2@example.com",
-                "password123",
+                "ayamomega",
+                "ayamomega@example.com",
+                "newpassword",
                 Role.PEMBELI,
                 200.0,
-                null
+                new ArrayList<>()
         );
 
         assertNotEquals(user, anotherUser);
@@ -103,7 +137,7 @@ public class UserTest {
                 "password",
                 Role.ADMIN,
                 100.0,
-                null
+                new ArrayList<>()
         );
 
         assertEquals(user.hashCode(), sameUser.hashCode());
@@ -112,18 +146,24 @@ public class UserTest {
     @Test
     public void testHashCodeDifferentObjects() {
         User anotherUser = new User(
-                "Ayam Sigma",
+                "Ayam Omega",
                 LocalDate.of(1995, 10, 20),
                 Gender.FEMALE,
-                "ayamsigma2",
-                "ayamsigma2@example.com",
-                "password123",
+                "ayamomega",
+                "ayamomega@example.com",
+                "newpassword",
                 Role.PEMBELI,
                 200.0,
-                null
+                new ArrayList<>()
         );
 
         assertNotEquals(user.hashCode(), anotherUser.hashCode());
+    }
+
+    @Test
+    public void testToString() {
+        String expected = "User(fullName=Ayam Sigma, dateOfBirth=1990-05-15, gender=MALE, username=ayamsigma@example.com, email=ayamsigma@example.com, password=password, role=ADMIN, walletBalance=100.0, tokens=[])";
+        assertEquals(expected, user.toString());
     }
 
     @Test
@@ -131,16 +171,6 @@ public class UserTest {
         Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
         assertEquals(1, authorities.size());
         assertTrue(authorities.contains(new SimpleGrantedAuthority(Role.ADMIN.getValue())));
-    }
-
-    @Test
-    public void testGetUsername() {
-        assertEquals("ayamsigma@example.com", user.getUsername());
-    }
-
-    @Test
-    public void testGetRealUsername() {
-        assertEquals("ayamsigma", user.getRealUsername());
     }
 
     @Test
@@ -161,5 +191,45 @@ public class UserTest {
     @Test
     public void testIsEnabled() {
         assertTrue(user.isEnabled());
+    }
+
+    @Test
+    public void testNoArgsConstructor() {
+        User newUser = new User();
+        assertNull(newUser.getFullName());
+        assertNull(newUser.getDateOfBirth());
+        assertNull(newUser.getGender());
+        assertNull(newUser.getUsername());
+        assertNull(newUser.getEmail());
+        assertNull(newUser.getPassword());
+        assertNull(newUser.getRole());
+        assertEquals(0.0, newUser.getWalletBalance());
+        assertNull(newUser.getTokens());
+    }
+
+    @Test
+    public void testUserBuilder() {
+        UserBuilder builder = new UserBuilder()
+                .fullName("Ayam Sigma")
+                .dateOfBirth(LocalDate.of(1990, 5, 15))
+                .gender(Gender.MALE)
+                .username("ayamsigma")
+                .email("ayamsigma@example.com")
+                .password("password")
+                .role(Role.ADMIN)
+                .walletBalance(100.0)
+                .tokens(new ArrayList<>());
+
+        User builtUser = builder.build();
+
+        assertEquals("Ayam Sigma", builtUser.getFullName());
+        assertEquals(LocalDate.of(1990, 5, 15), builtUser.getDateOfBirth());
+        assertEquals(Gender.MALE, builtUser.getGender());
+        assertEquals("ayamsigma", builtUser.getRealUsername());
+        assertEquals("ayamsigma@example.com", builtUser.getEmail());
+        assertEquals("password", builtUser.getPassword());
+        assertEquals(Role.ADMIN, builtUser.getRole());
+        assertEquals(100.0, builtUser.getWalletBalance());
+        assertNotNull(builtUser.getTokens());
     }
 }
