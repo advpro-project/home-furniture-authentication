@@ -1,23 +1,41 @@
-package com.hoomgroom.authentication.config;
+package com.hoomgroom.authentication.service;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.JwtParser;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+
+import jakarta.annotation.PostConstruct;
+import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
 @Service
+@NoArgsConstructor
 public class JwtService {
 
-    private static final String SECRET_KEY = "ABBC0919662E8A70501B1CA15C511EFAD2AE40B9B37AE44811107FDA3123095B";
+    @Value("${jwt.secret_key}")
+    private String SECRET_KEY;
+
+    private Key signInKey;
+    private JwtParser jwtParser;
+    private final Map<String, Claims> tokenCache = new ConcurrentHashMap<>();
+
+    @PostConstruct
+    void init() {
+        this.signInKey = getSignInKey();
+        this.jwtParser = Jwts.parserBuilder().setSigningKey(signInKey).build();
+    }
 
     public String extractEmail(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -29,20 +47,16 @@ public class JwtService {
     }
 
     public String generateToken(UserDetails userDetails) {
-        return generateToken(new HashMap<>(), userDetails);
+        return generateToken(Map.of(), userDetails);
     }
 
-    public String generateToken(
-            Map<String, Object> extraClaims,
-            UserDetails userDetails
-    ) {
-        return Jwts
-                .builder()
+    public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
+        return Jwts.builder()
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))   // Valid for 1 day
-                .signWith(getSignInKey(), SignatureAlgorithm.HS256)
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 60 * 24))
+                .signWith(signInKey, SignatureAlgorithm.HS256)
                 .compact();
     }
 
@@ -60,12 +74,8 @@ public class JwtService {
     }
 
     private Claims extractAllClaims(String token) {
-        return Jwts
-                .parserBuilder()
-                .setSigningKey(getSignInKey())
-                .build()
-                .parseClaimsJws(token)
-                .getBody();
+        // Check if the token is already cached
+        return tokenCache.computeIfAbsent(token, t -> jwtParser.parseClaimsJws(t).getBody());
     }
 
     private Key getSignInKey() {
