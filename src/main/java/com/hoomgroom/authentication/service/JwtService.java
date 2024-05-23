@@ -32,7 +32,7 @@ public class JwtService {
     private final Map<String, Claims> tokenCache = new ConcurrentHashMap<>();
 
     @PostConstruct
-    private void init() {
+    void init() {
         this.signInKey = getSignInKey();
         this.jwtParser = Jwts.parserBuilder().setSigningKey(signInKey).build();
     }

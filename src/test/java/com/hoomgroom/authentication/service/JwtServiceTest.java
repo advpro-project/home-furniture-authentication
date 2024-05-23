@@ -1,9 +1,11 @@
 package com.hoomgroom.authentication.service;
 
+import io.jsonwebtoken.security.SignatureException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.test.util.ReflectionTestUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,6 +19,8 @@ public class JwtServiceTest {
     @BeforeEach
     void setUp() {
         jwtService = new JwtService();
+        ReflectionTestUtils.setField(jwtService, "SECRET_KEY", "ABBC0919662E8A70501B1CA15C511EFAD2AE40B9B37AE44811107FDA3123095B");
+        jwtService.init();
     }
 
     @Test
@@ -74,7 +78,7 @@ public class JwtServiceTest {
         String token = jwtService.generateToken(userDetails);
         String finalToken = token + "invalid";
 
-        assertThrows(io.jsonwebtoken.security.SignatureException.class, () -> jwtService.isTokenValid(finalToken, userDetails));
+        assertThrows(SignatureException.class, () -> jwtService.isTokenValid(finalToken, userDetails));
     }
 
     @Test
