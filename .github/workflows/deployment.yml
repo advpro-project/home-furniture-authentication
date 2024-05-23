@@ -61,8 +61,6 @@ jobs:
           key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
           restore-keys: |
             ${{ runner.os }}-gradle-
-      - name: Set JWT Secret Key
-        run: echo "jwt.secret_key=${{ secrets.SECRET_KEY }}" >> .env
 
   publish:
     name: Publish Docker Image
@@ -113,3 +111,6 @@ jobs:
             sudo docker container rm -f ${{ secrets.CONTAINER_NAME }} || true &&
             sudo docker image rm -f ${{ secrets.REGISTRY_USER }}/${{ secrets.IMAGE_NAME }}:${{ secrets.IMAGE_TAG }} || true &&
             sudo docker run --name ${{ secrets.CONTAINER_NAME }} -d -p 80:8080 ${{ secrets.REGISTRY_USER }}/${{ secrets.IMAGE_NAME }}:${{ secrets.IMAGE_TAG }}"
+
+env:
+  JWT_SECRET_KEY: ${{ secrets.SECRET_KEY }}
