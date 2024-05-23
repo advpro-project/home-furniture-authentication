@@ -3,6 +3,7 @@ package com.hoomgroom.authentication.controller;
 import com.hoomgroom.authentication.dto.LoginRequest;
 import com.hoomgroom.authentication.dto.LoginResponse;
 import com.hoomgroom.authentication.dto.RegisterRequest;
+import com.hoomgroom.authentication.dto.UserData;
 import com.hoomgroom.authentication.model.User;
 import com.hoomgroom.authentication.service.AuthenticationService;
 
@@ -52,19 +53,17 @@ class AuthenticationControllerTest {
     void testLogin() {
         LoginRequest loginRequest = new LoginRequest();
 
-        User user = new User(
-                "Ayam Sigma",
-                LocalDate.of(1990, 5, 15),
-                Gender.MALE,
-                "ayamsigma",
-                "ayamsigma@example.com",
-                "password",
-                Role.ADMIN,
-                100.0,
-                null
-        );
+        UserData userData = UserData.builder()
+                .fullName("dummyName")
+                .dateOfBirth(LocalDate.now())
+                .gender(Gender.MALE)
+                .username("dummyUsername")
+                .email("dummyEmail@gmail.com")
+                .role(Role.PEMBELI)
+                .walletBalance(0.0)
+                .build();
 
-        LoginResponse expectedResponse = new LoginResponse("dummyToken", user);
+        LoginResponse expectedResponse = new LoginResponse("dummyToken", userData);
 
         when(authenticationService.login(loginRequest)).thenReturn(CompletableFuture.completedFuture(expectedResponse));
 
