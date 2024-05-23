@@ -6,6 +6,12 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+
+import jakarta.annotation.PostConstruct;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -16,14 +22,18 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 
 @Service
+@NoArgsConstructor
 public class JwtService {
 
-    private static final String SECRET_KEY = "ABBC0919662E8A70501B1CA15C511EFAD2AE40B9B37AE44811107FDA3123095B";
-    private final Key signInKey;
-    private final JwtParser jwtParser;
+    @Value("${jwt.secret_key}")
+    private String SECRET_KEY;
+
+    private Key signInKey;
+    private JwtParser jwtParser;
     private final Map<String, Claims> tokenCache = new ConcurrentHashMap<>();
 
-    public JwtService() {
+    @PostConstruct
+    private void init() {
         this.signInKey = getSignInKey();
         this.jwtParser = Jwts.parserBuilder().setSigningKey(signInKey).build();
     }
