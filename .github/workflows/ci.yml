@@ -1,0 +1,35 @@
+name: Continuous Integration (CI)
+
+## Run CI jobs on all branches by default
+on:
+  push:
+  pull_request:
+
+jobs:
+  test-with-h2:
+    name: Run tests with H2
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Check out the Git repository
+        uses: actions/checkout@v4
+      - name: Set up Java toolchain
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "22"
+          cache: "gradle"
+      - name: Run tests with H2 database
+        run: ./gradlew test -Dspring.profiles.active=test
+        env:
+          SPRING_PROFILES_ACTIVE: test
+          SPRING_DATASOURCE_URL: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1
+          SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.h2.Driver
+          SPRING_DATASOURCE_USERNAME: sa
+          SPRING_DATASOURCE_PASSWORD: ""
+          SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.H2Dialect
+          SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT: org.hibernate.dialect.H2Dialect
+          SPRING_JPA_HIBERNATE_DDL_AUTO: update
+          SPRING_JPA_SHOW_SQL: "true"
+          SPRING_JPA_PROPERTIES_HIBERNATE_FORMAT_SQL: "true"
+          SECURITY_JWT_SECRET_KEY: ${{ secrets.SECRET_KEY }}
+          SECURITY_JWT_EXPIRATION_TIME: 1440000
