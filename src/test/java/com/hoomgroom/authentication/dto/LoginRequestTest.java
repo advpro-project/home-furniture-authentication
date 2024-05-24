@@ -42,6 +42,20 @@ public class LoginRequestTest {
     }
 
     @Test
+    public void testNoArgsConstructor() {
+        LoginRequest noArgsLoginRequest = new LoginRequest();
+
+        assertNull(noArgsLoginRequest.getEmail());
+        assertNull(noArgsLoginRequest.getPassword());
+
+        noArgsLoginRequest.setEmail("newemail@gmail.com");
+        noArgsLoginRequest.setPassword("newpassword");
+
+        assertEquals("newemail@gmail.com", noArgsLoginRequest.getEmail());
+        assertEquals("newpassword", noArgsLoginRequest.getPassword());
+    }
+
+    @Test
     public void testEqualsSameObject() {
         assertEquals(loginRequest, loginRequest);
     }
@@ -94,5 +108,11 @@ public class LoginRequestTest {
                 .build();
 
         assertNotEquals(loginRequest.hashCode(), anotherLoginRequest.hashCode());
+    }
+
+    @Test
+    public void testToString() {
+        String expectedToString = "LoginRequest(email=ayamsigma@gmail.com, password=ayamsigma@gmail.com)";
+        assertEquals(expectedToString, loginRequest.toString());
     }
 }
