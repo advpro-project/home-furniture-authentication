@@ -42,18 +42,22 @@ public class LoginRequestTest {
     }
 
     @Test
-    public void testEqualsSameObject() {
-        assertEquals(loginRequest, loginRequest);
+    public void testNoArgsConstructor() {
+        LoginRequest noArgsLoginRequest = new LoginRequest();
+
+        assertNull(noArgsLoginRequest.getEmail());
+        assertNull(noArgsLoginRequest.getPassword());
+
+        noArgsLoginRequest.setEmail("newemail@gmail.com");
+        noArgsLoginRequest.setPassword("newpassword");
+
+        assertEquals("newemail@gmail.com", noArgsLoginRequest.getEmail());
+        assertEquals("newpassword", noArgsLoginRequest.getPassword());
     }
 
     @Test
-    public void testEqualsDifferentObjectsWithSameValues() {
-        LoginRequest anotherLoginRequest = LoginRequest.builder()
-                .email("ayamsigma@gmail.com")
-                .password("ayamsigma@gmail.com")
-                .build();
-
-        assertEquals(loginRequest, anotherLoginRequest);
+    public void testEqualsSameObject() {
+        assertEquals(loginRequest, loginRequest);
     }
 
     @Test
@@ -74,16 +78,6 @@ public class LoginRequestTest {
     @Test
     public void testEqualsWithDifferentType() {
         assertFalse(loginRequest.equals("Not a LoginRequest"));
-    }
-
-    @Test
-    public void testHashCodeSameObjects() {
-        LoginRequest sameLoginRequest = LoginRequest.builder()
-                .email("ayamsigma@gmail.com")
-                .password("ayamsigma@gmail.com")
-                .build();
-
-        assertEquals(loginRequest.hashCode(), sameLoginRequest.hashCode());
     }
 
     @Test

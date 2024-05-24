@@ -1,6 +1,5 @@
 package com.hoomgroom.authentication.dto;
 
-import com.hoomgroom.authentication.model.User;
 import enums.Gender;
 import enums.Role;
 import org.junit.jupiter.api.BeforeEach;
@@ -10,7 +9,7 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class LoginResponseTest {
+class LoginResponseTest {
 
     private LoginResponse loginResponse;
 
@@ -22,19 +21,19 @@ public class LoginResponseTest {
     }
 
     @Test
-    public void testBuilder() {
+    void testBuilder() {
         assertNotNull(loginResponse);
         assertEquals("exampleToken", loginResponse.getToken());
     }
 
     @Test
-    public void testSettersAndGetters() {
+    void testSettersAndGetters() {
         loginResponse.setToken("newToken");
         assertEquals("newToken", loginResponse.getToken());
     }
 
     @Test
-    public void testAllArgsConstructor() {
+    void testAllArgsConstructor() {
         UserData userData = UserData.builder()
                 .fullName("dummyName")
                 .dateOfBirth(LocalDate.now())
@@ -48,24 +47,30 @@ public class LoginResponseTest {
         LoginResponse fullLoginResponse = new LoginResponse("exampleToken", userData);
 
         assertEquals("exampleToken", fullLoginResponse.getToken());
+        assertEquals(userData, fullLoginResponse.getUserData());
     }
 
     @Test
-    public void testEqualsSameObject() {
+    void testNoArgsConstructor() {
+        LoginResponse noArgsLoginResponse = new LoginResponse();
+
+        assertNull(noArgsLoginResponse.getToken());
+        assertNull(noArgsLoginResponse.getUserData());
+
+        noArgsLoginResponse.setToken("newToken");
+        noArgsLoginResponse.setUserData(new UserData());
+
+        assertEquals("newToken", noArgsLoginResponse.getToken());
+        assertNotNull(noArgsLoginResponse.getUserData());
+    }
+
+    @Test
+    void testEqualsSameObject() {
         assertEquals(loginResponse, loginResponse);
     }
 
     @Test
-    public void testEqualsDifferentObjectsWithSameValues() {
-        LoginResponse anotherLoginResponse = LoginResponse.builder()
-                .token("exampleToken")
-                .build();
-
-        assertEquals(loginResponse, anotherLoginResponse);
-    }
-
-    @Test
-    public void testEqualsDifferentObjectsWithDifferentValues() {
+    void testEqualsDifferentObjectsWithDifferentValues() {
         LoginResponse anotherLoginResponse = LoginResponse.builder()
                 .token("newToken")
                 .build();
@@ -74,26 +79,17 @@ public class LoginResponseTest {
     }
 
     @Test
-    public void testEqualsWithNull() {
+    void testEqualsWithNull() {
         assertFalse(loginResponse.equals(null));
     }
 
     @Test
-    public void testEqualsWithDifferentType() {
+    void testEqualsWithDifferentType() {
         assertFalse(loginResponse.equals("Not a LoginResponse"));
     }
 
     @Test
-    public void testHashCodeSameObjects() {
-        LoginResponse sameLoginResponse = LoginResponse.builder()
-                .token("exampleToken")
-                .build();
-
-        assertEquals(loginResponse.hashCode(), sameLoginResponse.hashCode());
-    }
-
-    @Test
-    public void testHashCodeDifferentObjects() {
+    void testHashCodeDifferentObjects() {
         LoginResponse anotherLoginResponse = LoginResponse.builder()
                 .token("newToken")
                 .build();

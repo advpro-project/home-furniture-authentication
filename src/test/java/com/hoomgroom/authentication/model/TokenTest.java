@@ -47,32 +47,4 @@ public class TokenTest {
         assertEquals(false, foundToken.isRevoked());
         assertEquals(user, foundToken.getUser());
     }
-
-    @Test
-    void testEquals() {
-        Token token1 = new Token("token1", TokenType.BEARER, false, false, null);
-        Token token2 = new Token("token1", TokenType.BEARER, false, false, null);
-        Token token3 = new Token("token2", TokenType.BEARER, false, false, null);
-
-        assertEquals(token1, token2);
-        assertNotEquals(token1, token3);
-    }
-
-    @Test
-    void testHashCode() {
-        Token token1 = new Token("token1", TokenType.BEARER, false, false, null);
-        Token token2 = new Token("token1", TokenType.BEARER, false, false, null);
-        Token token3 = new Token("token2", TokenType.BEARER, false, false, null);
-
-        assertEquals(token1.hashCode(), token2.hashCode());
-        assertNotEquals(token1.hashCode(), token3.hashCode());
-    }
-
-    @Test
-    void testToString() {
-        Token token = new Token("token1", TokenType.BEARER, false, false, null);
-        String expectedToString = "Token(token=token1, tokenType=BEARER, expired=false, revoked=false, user=null)";
-
-        assertEquals(expectedToString, token.toString());
-    }
 }

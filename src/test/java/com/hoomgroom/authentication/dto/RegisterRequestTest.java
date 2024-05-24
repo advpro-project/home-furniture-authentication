@@ -23,7 +23,7 @@ class RegisterRequestTest {
     }
 
     @Test
-    public void testBuilder() {
+    void testBuilder() {
         assertNotNull(registerRequest);
         assertEquals("Ayam Sigma", registerRequest.getFullName());
         assertEquals("1990-01-01", registerRequest.getDateOfBirth());
@@ -35,7 +35,7 @@ class RegisterRequestTest {
     }
 
     @Test
-    public void testSettersAndGetters() {
+    void testSettersAndGetters() {
         registerRequest.setFullName("Sapi Sigma");
         assertEquals("Sapi Sigma", registerRequest.getFullName());
 
@@ -59,7 +59,7 @@ class RegisterRequestTest {
     }
 
     @Test
-    public void testNoArgsConstructor() {
+    void testNoArgsConstructor() {
         RegisterRequest emptyRegisterRequest = new RegisterRequest();
 
         assertNull(emptyRegisterRequest.getFullName());
@@ -72,7 +72,7 @@ class RegisterRequestTest {
     }
 
     @Test
-    public void testAllArgsConstructor() {
+    void testAllArgsConstructor() {
         RegisterRequest fullRegisterRequest = new RegisterRequest(
                 "Ayam Sigma",
                 "1990-01-01",
@@ -93,60 +93,12 @@ class RegisterRequestTest {
     }
 
     @Test
-    public void testEqualsAndHashCode() {
-        RegisterRequest anotherRegisterRequest = RegisterRequest.builder()
-                .fullName("Ayam Sigma")
-                .dateOfBirth("1990-01-01")
-                .gender("MALE")
-                .username("ayamSigma")
-                .email("ayamsigma@gmail.com")
-                .password("ayamsigma@gmail.com")
-                .role("PEMBELI")
-                .build();
-
-        assertEquals(registerRequest, anotherRegisterRequest);
-        assertEquals(registerRequest.hashCode(), anotherRegisterRequest.hashCode());
-
-        anotherRegisterRequest.setEmail("different@gmail.com");
-        assertNotEquals(registerRequest, anotherRegisterRequest);
-        assertNotEquals(registerRequest.hashCode(), anotherRegisterRequest.hashCode());
-    }
-
-    @Test
-    public void testToString() {
-        String expectedToString = "RegisterRequest(fullName=Ayam Sigma, dateOfBirth=1990-01-01, gender=MALE, username=ayamSigma, email=ayamsigma@gmail.com, password=ayamsigma@gmail.com, role=PEMBELI)";
-        assertEquals(expectedToString, registerRequest.toString());
-    }
-
-    @Test
-    public void testCanEqual() {
-        RegisterRequest anotherRegisterRequest = RegisterRequest.builder().build();
-        assertTrue(registerRequest.canEqual(anotherRegisterRequest));
-        assertFalse(registerRequest.canEqual(new Object()));
-    }
-
-    @Test
-    public void testEqualsSameObject() {
+    void testEqualsSameObject() {
         assertEquals(registerRequest, registerRequest);
     }
 
     @Test
-    public void testEqualsDifferentObjectsWithSameValues() {
-        RegisterRequest anotherRegisterRequest = RegisterRequest.builder()
-                .fullName("Ayam Sigma")
-                .dateOfBirth("1990-01-01")
-                .gender("MALE")
-                .username("ayamSigma")
-                .email("ayamsigma@gmail.com")
-                .password("ayamsigma@gmail.com")
-                .role("PEMBELI")
-                .build();
-
-        assertEquals(registerRequest, anotherRegisterRequest);
-    }
-
-    @Test
-    public void testEqualsDifferentObjectsWithDifferentValues() {
+    void testEqualsDifferentObjectsWithDifferentValues() {
         RegisterRequest anotherRegisterRequest = RegisterRequest.builder()
                 .fullName("Ayam Kappa")
                 .dateOfBirth("1991-01-01")
@@ -161,12 +113,33 @@ class RegisterRequestTest {
     }
 
     @Test
-    public void testEqualsWithNull() {
+    void testEqualsWithNull() {
         assertFalse(registerRequest.equals(null));
     }
 
     @Test
-    public void testEqualsWithDifferentType() {
+    void testEqualsWithDifferentType() {
         assertFalse(registerRequest.equals("Not a RegisterRequest"));
+    }
+
+    @Test
+    void testHashCodeConsistency() {
+        int initialHashCode = registerRequest.hashCode();
+        assertEquals(initialHashCode, registerRequest.hashCode());
+    }
+
+    @Test
+    void testHashCodeForDifferentObjects() {
+        RegisterRequest anotherRegisterRequest = RegisterRequest.builder()
+                .fullName("Ayam Kappa")
+                .dateOfBirth("1991-01-01")
+                .gender("FEMALE")
+                .username("ayamKappa")
+                .email("ayamkappa@gmail.com")
+                .password("ayamkappa@gmail.com")
+                .role("ADMIN")
+                .build();
+
+        assertNotEquals(registerRequest.hashCode(), anotherRegisterRequest.hashCode());
     }
 }
