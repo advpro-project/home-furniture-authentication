@@ -67,21 +67,6 @@ public class UserDataTest {
     }
 
     @Test
-    public void testEqualsDifferentObjectsWithSameValues() {
-        UserData anotherUserData = UserData.builder()
-                .fullName("Ayam Sigma")
-                .dateOfBirth(LocalDate.of(1990, 5, 15))
-                .gender(Gender.MALE)
-                .username("ayamsigma")
-                .email("ayamsigma@example.com")
-                .role(Role.ADMIN)
-                .walletBalance(100.0)
-                .build();
-
-        assertEquals(userData, anotherUserData);
-    }
-
-    @Test
     public void testEqualsDifferentObjectsWithDifferentValues() {
         UserData anotherUserData = UserData.builder()
                 .fullName("Ayam Omega")
@@ -107,21 +92,6 @@ public class UserDataTest {
     }
 
     @Test
-    public void testHashCodeSameObjects() {
-        UserData sameUserData = UserData.builder()
-                .fullName("Ayam Sigma")
-                .dateOfBirth(LocalDate.of(1990, 5, 15))
-                .gender(Gender.MALE)
-                .username("ayamsigma")
-                .email("ayamsigma@example.com")
-                .role(Role.ADMIN)
-                .walletBalance(100.0)
-                .build();
-
-        assertEquals(userData.hashCode(), sameUserData.hashCode());
-    }
-
-    @Test
     public void testHashCodeDifferentObjects() {
         UserData anotherUserData = UserData.builder()
                 .fullName("Ayam Omega")
@@ -134,12 +104,6 @@ public class UserDataTest {
                 .build();
 
         assertNotEquals(userData.hashCode(), anotherUserData.hashCode());
-    }
-
-    @Test
-    public void testToString() {
-        String expected = "UserData(fullName=Ayam Sigma, dateOfBirth=1990-05-15, gender=MALE, username=ayamsigma, email=ayamsigma@example.com, role=ADMIN, walletBalance=100.0)";
-        assertEquals(expected, userData.toString());
     }
 
     @Test

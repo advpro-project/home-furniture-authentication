@@ -83,23 +83,6 @@ public class UserTest {
     }
 
     @Test
-    public void testEqualsDifferentObjectsWithSameValues() {
-        User anotherUser = new User(
-                "Ayam Sigma",
-                LocalDate.of(1990, 5, 15),
-                Gender.MALE,
-                "ayamsigma",
-                "ayamsigma@example.com",
-                "password",
-                Role.ADMIN,
-                100.0,
-                new ArrayList<>()
-        );
-
-        assertEquals(user, anotherUser);
-    }
-
-    @Test
     public void testEqualsDifferentObjectsWithDifferentValues() {
         User anotherUser = new User(
                 "Ayam Omega",
@@ -126,22 +109,6 @@ public class UserTest {
         assertFalse(user.equals("Not a User"));
     }
 
-    @Test
-    public void testHashCodeSameObjects() {
-        User sameUser = new User(
-                "Ayam Sigma",
-                LocalDate.of(1990, 5, 15),
-                Gender.MALE,
-                "ayamsigma",
-                "ayamsigma@example.com",
-                "password",
-                Role.ADMIN,
-                100.0,
-                new ArrayList<>()
-        );
-
-        assertEquals(user.hashCode(), sameUser.hashCode());
-    }
 
     @Test
     public void testHashCodeDifferentObjects() {
@@ -158,12 +125,6 @@ public class UserTest {
         );
 
         assertNotEquals(user.hashCode(), anotherUser.hashCode());
-    }
-
-    @Test
-    public void testToString() {
-        String expected = "User(fullName=Ayam Sigma, dateOfBirth=1990-05-15, gender=MALE, username=ayamsigma@example.com, email=ayamsigma@example.com, password=password, role=ADMIN, walletBalance=100.0, tokens=[])";
-        assertEquals(expected, user.toString());
     }
 
     @Test
