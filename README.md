@@ -3,6 +3,30 @@ This is the [authentication](http://34.143.229.201/) service for HoomGroom. It i
 
 **Akmal Ramadhan - 2206081534 - A06**
 
+# Module 12: Software Architecture
+## Component Diagram
+![Component Diagram](image/0_componentdiagram.jpg)
+
+## Code Diagram
+### User Component
+![User Component](image/1_user.jpg)
+
+### Token Component
+![Token Component](image/2_token.jpg)
+
+### Data Transfer Object Component
+![DTO Component](image/3_dto.jpg)
+
+### Service Component
+![Service Component](image/4_service.jpg)
+
+### Controller Component
+![Controller Component](image/5_controller.jpg)
+
+### Configuration Component
+![Configuration Component](image/6_config.jpg)
+
+# Module 11: Deployment and Monitoring
 ## Profiling
 Saya menggunakan IntelliJ Profiler untuk mencari salah satu _bottleneck_ dari _service_ ini.
 
