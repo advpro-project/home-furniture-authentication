@@ -35,7 +35,7 @@ class LogoutServiceTest {
         when(request.getHeader("Authorization")).thenReturn("Bearer valid_token");
 
         Token token = mock(Token.class);
-        when(tokenRepository.findByToken(anyString())).thenReturn(java.util.Optional.of(token));
+        when(tokenRepository.findByJwtToken(anyString())).thenReturn(java.util.Optional.of(token));
 
         logoutService.logout(request, response, authentication);
 

@@ -33,7 +33,7 @@ class TokenTest {
                 .revoked(false)
                 .user(user);
 
-        Token token =builder.build();
+        Token token = builder.build();
 
         entityManager.persist(user);
         entityManager.persist(token);
