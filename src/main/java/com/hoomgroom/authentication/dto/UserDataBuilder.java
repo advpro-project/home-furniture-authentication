@@ -14,8 +14,6 @@ public class UserDataBuilder {
     Role role;
     double walletBalance;
 
-    public UserDataBuilder() {}
-
     public UserDataBuilder fullName(String fullName) {
         this.fullName = fullName;
         return this;

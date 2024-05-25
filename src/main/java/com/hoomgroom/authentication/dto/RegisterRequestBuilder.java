@@ -9,8 +9,6 @@ public class RegisterRequestBuilder {
     String password;
     String role;
 
-    public RegisterRequestBuilder() {}
-
     public RegisterRequestBuilder fullName(String fullName) {
         this.fullName = fullName;
         return this;

@@ -4,8 +4,6 @@ public class LoginResponseBuilder {
     String token;
     UserData userData;
 
-    public LoginResponseBuilder() {}
-
     public LoginResponseBuilder token(String token) {
         this.token = token;
         return this;

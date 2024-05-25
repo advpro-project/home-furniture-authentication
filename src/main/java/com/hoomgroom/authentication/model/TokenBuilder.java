@@ -9,8 +9,6 @@ public class TokenBuilder {
     boolean revoked;
     User user;
 
-    public TokenBuilder() {}
-
     public TokenBuilder token(String token) {
         this.token = token;
         return this;

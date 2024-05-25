@@ -4,8 +4,6 @@ public class LoginRequestBuilder {
     String email;
     String password;
 
-    public LoginRequestBuilder() {}
-
     public LoginRequestBuilder email(String email) {
         this.email = email;
         return this;
