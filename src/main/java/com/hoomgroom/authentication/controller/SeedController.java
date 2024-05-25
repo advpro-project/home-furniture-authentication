@@ -24,7 +24,7 @@ public class SeedController {
     public CompletableFuture<ResponseEntity<String>> seed() {
         return seedService.seed()
                 .thenApply(isSeeded -> {
-                    if (isSeeded) {
+                    if (isSeeded == Boolean.TRUE) {
                         return ResponseEntity.ok("Berhasil seeding data");
                     } else {
                         return ResponseEntity.ok("Gagal seeding data");
