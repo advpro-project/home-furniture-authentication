@@ -80,12 +80,12 @@ class LoginResponseTest {
 
     @Test
     void testEqualsWithNull() {
-        assertFalse(loginResponse.equals(null));
+        assertNotEquals(null, loginResponse);
     }
 
     @Test
     void testEqualsWithDifferentType() {
-        assertFalse(loginResponse.equals("Not a LoginResponse"));
+        assertNotEquals("Not a LoginResponse", loginResponse);
     }
 
     @Test

@@ -11,7 +11,7 @@ import lombok.*;
 @Entity
 public class Token {
     @Id
-    private String token;
+    private String jwtToken;
 
     @Enumerated(EnumType.STRING)
     private TokenType tokenType;
@@ -24,7 +24,7 @@ public class Token {
     private User user;
 
     Token(TokenBuilder builder) {
-        this.token = builder.token;
+        this.jwtToken = builder.token;
         this.tokenType = builder.tokenType;
         this.expired = builder.expired;
         this.revoked = builder.revoked;

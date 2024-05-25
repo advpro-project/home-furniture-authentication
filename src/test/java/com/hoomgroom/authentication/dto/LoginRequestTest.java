@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class LoginRequestTest {
+class LoginRequestTest {
 
     private LoginRequest loginRequest;
 
@@ -18,14 +18,14 @@ public class LoginRequestTest {
     }
 
     @Test
-    public void testBuilder() {
+    void testBuilder() {
         assertNotNull(loginRequest);
         assertEquals("ayamsigma@gmail.com", loginRequest.getEmail());
         assertEquals("ayamsigma@gmail.com", loginRequest.getPassword());
     }
 
     @Test
-    public void testSettersAndGetters() {
+    void testSettersAndGetters() {
         loginRequest.setEmail("sapisigma@gmail.com");
         assertEquals("sapisigma@gmail.com", loginRequest.getEmail());
 
@@ -34,7 +34,7 @@ public class LoginRequestTest {
     }
 
     @Test
-    public void testAllArgsConstructor() {
+    void testAllArgsConstructor() {
         LoginRequest fullLoginRequest = new LoginRequest("ayamsigma@gmail.com", "ayamsigma@gmail.com");
 
         assertEquals("ayamsigma@gmail.com", fullLoginRequest.getEmail());
@@ -42,7 +42,7 @@ public class LoginRequestTest {
     }
 
     @Test
-    public void testNoArgsConstructor() {
+    void testNoArgsConstructor() {
         LoginRequest noArgsLoginRequest = new LoginRequest();
 
         assertNull(noArgsLoginRequest.getEmail());
@@ -56,12 +56,12 @@ public class LoginRequestTest {
     }
 
     @Test
-    public void testEqualsSameObject() {
+    void testEqualsSameObject() {
         assertEquals(loginRequest, loginRequest);
     }
 
     @Test
-    public void testEqualsDifferentObjectsWithDifferentValues() {
+    void testEqualsDifferentObjectsWithDifferentValues() {
         LoginRequest anotherLoginRequest = new LoginRequestBuilder()
                 .email("sapisigma@gmail.com")
                 .password("sapisigma@gmail.com")
@@ -71,17 +71,17 @@ public class LoginRequestTest {
     }
 
     @Test
-    public void testEqualsWithNull() {
-        assertFalse(loginRequest.equals(null));
+    void testEqualsWithNull() {
+        assertNotEquals(null, loginRequest);
     }
 
     @Test
-    public void testEqualsWithDifferentType() {
-        assertFalse(loginRequest.equals("Not a LoginRequest"));
+    void testEqualsWithDifferentType() {
+        assertNotEquals("Not a LoginRequest", loginRequest);
     }
 
     @Test
-    public void testHashCodeDifferentObjects() {
+    void testHashCodeDifferentObjects() {
         LoginRequest anotherLoginRequest = new LoginRequestBuilder()
                 .email("sapisigma@gmail.com")
                 .password("sapisigma@gmail.com")

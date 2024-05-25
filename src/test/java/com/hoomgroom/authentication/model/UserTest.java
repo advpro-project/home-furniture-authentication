@@ -14,7 +14,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class UserTest {
+class UserTest {
 
     private User user;
 
@@ -34,7 +34,7 @@ public class UserTest {
     }
 
     @Test
-    public void testConstructorAndGetters() {
+    void testConstructorAndGetters() {
         assertEquals("Ayam Sigma", user.getFullName());
         assertEquals(LocalDate.of(1990, 5, 15), user.getDateOfBirth());
         assertEquals(Gender.MALE, user.getGender());
@@ -47,7 +47,7 @@ public class UserTest {
     }
 
     @Test
-    public void testSetters() {
+    void testSetters() {
         user.setFullName("Ayam Omega");
         assertEquals("Ayam Omega", user.getFullName());
 
@@ -78,12 +78,12 @@ public class UserTest {
     }
 
     @Test
-    public void testEqualsSameObject() {
+    void testEqualsSameObject() {
         assertEquals(user, user);
     }
 
     @Test
-    public void testEqualsDifferentObjectsWithDifferentValues() {
+    void testEqualsDifferentObjectsWithDifferentValues() {
         User anotherUser = new User(
                 "Ayam Omega",
                 LocalDate.of(1995, 10, 20),
@@ -100,18 +100,18 @@ public class UserTest {
     }
 
     @Test
-    public void testEqualsWithNull() {
-        assertFalse(user.equals(null));
+    void testEqualsWithNull() {
+        assertNotEquals(null, user);
     }
 
     @Test
-    public void testEqualsWithDifferentType() {
-        assertFalse(user.equals("Not a User"));
+    void testEqualsWithDifferentType() {
+        assertNotEquals("Not a User", user);
     }
 
 
     @Test
-    public void testHashCodeDifferentObjects() {
+    void testHashCodeDifferentObjects() {
         User anotherUser = new User(
                 "Ayam Omega",
                 LocalDate.of(1995, 10, 20),
@@ -128,34 +128,34 @@ public class UserTest {
     }
 
     @Test
-    public void testGetAuthorities() {
+    void testGetAuthorities() {
         Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
         assertEquals(1, authorities.size());
         assertTrue(authorities.contains(new SimpleGrantedAuthority(Role.ADMIN.getValue())));
     }
 
     @Test
-    public void testIsAccountNonExpired() {
+    void testIsAccountNonExpired() {
         assertTrue(user.isAccountNonExpired());
     }
 
     @Test
-    public void testIsAccountNonLocked() {
+    void testIsAccountNonLocked() {
         assertTrue(user.isAccountNonLocked());
     }
 
     @Test
-    public void testIsCredentialsNonExpired() {
+    void testIsCredentialsNonExpired() {
         assertTrue(user.isCredentialsNonExpired());
     }
 
     @Test
-    public void testIsEnabled() {
+    void testIsEnabled() {
         assertTrue(user.isEnabled());
     }
 
     @Test
-    public void testNoArgsConstructor() {
+    void testNoArgsConstructor() {
         User newUser = new User();
         assertNull(newUser.getFullName());
         assertNull(newUser.getDateOfBirth());
@@ -169,7 +169,7 @@ public class UserTest {
     }
 
     @Test
-    public void testUserBuilder() {
+    void testUserBuilder() {
         UserBuilder builder = new UserBuilder()
                 .fullName("Ayam Sigma")
                 .dateOfBirth(LocalDate.of(1990, 5, 15))

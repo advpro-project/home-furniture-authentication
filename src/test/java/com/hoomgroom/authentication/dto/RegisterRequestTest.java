@@ -114,12 +114,12 @@ class RegisterRequestTest {
 
     @Test
     void testEqualsWithNull() {
-        assertFalse(registerRequest.equals(null));
+        assertNotEquals(null, registerRequest);
     }
 
     @Test
     void testEqualsWithDifferentType() {
-        assertFalse(registerRequest.equals("Not a RegisterRequest"));
+        assertNotEquals("Not a RegisterRequest", registerRequest);
     }
 
     @Test

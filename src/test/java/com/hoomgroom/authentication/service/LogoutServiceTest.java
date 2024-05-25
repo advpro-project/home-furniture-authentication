@@ -9,7 +9,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.test.context.TestPropertySource;
 
 import static org.mockito.ArgumentMatchers.anyString;
@@ -18,7 +17,7 @@ import static org.mockito.Mockito.*;
 @SpringBootTest
 @TestPropertySource(properties = {"spring.autoconfigure.exclude=" +
         "org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration"})
-public class LogoutServiceTest {
+class LogoutServiceTest {
 
     @Mock
     private TokenRepository tokenRepository;
@@ -27,7 +26,7 @@ public class LogoutServiceTest {
     private LogoutService logoutService;
 
     @Test
-    public void testLogout() {
+    void testLogout() {
         HttpServletRequest request = mock(HttpServletRequest.class);
         HttpServletResponse response = mock(HttpServletResponse.class);
 
