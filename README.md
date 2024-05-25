@@ -3,6 +3,12 @@ This is the [authentication](http://34.143.229.201/) service for HoomGroom. It i
 
 **Akmal Ramadhan - 2206081534 - A06**
 
+## Code Review
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=advpro-project_home-furniture-authentication&metric=bugs)](https://sonarcloud.io/summary/new_code?id=advpro-project_home-furniture-authentication)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=advpro-project_home-furniture-authentication&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=advpro-project_home-furniture-authentication)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=advpro-project_home-furniture-authentication&metric=coverage)](https://sonarcloud.io/summary/new_code?id=advpro-project_home-furniture-authentication)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=advpro-project_home-furniture-authentication&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=advpro-project_home-furniture-authentication)
+
 # Module 12: Software Architecture
 ## Component Diagram
 ![Component Diagram](image/0_componentdiagram.jpg)

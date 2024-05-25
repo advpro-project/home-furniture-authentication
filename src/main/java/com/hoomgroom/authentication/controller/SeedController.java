@@ -12,8 +12,13 @@ import java.util.concurrent.CompletableFuture;
 @RestController
 @RequestMapping("/seed")
 public class SeedController {
+
+    private final SeedService seedService;
+
     @Autowired
-    private SeedService seedService;
+    public SeedController(SeedService seedService) {
+        this.seedService = seedService;
+    }
 
     @GetMapping("")
     public CompletableFuture<ResponseEntity<String>> seed() {
