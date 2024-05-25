@@ -10,7 +10,7 @@ public class LoginResponse {
     private String token;
     private UserData userData;
 
-    LoginResponse(LoginResponseBuilder builder) {
+    public LoginResponse(LoginResponseBuilder builder) {
         this.token = builder.token;
         this.userData = builder.userData;
     }
