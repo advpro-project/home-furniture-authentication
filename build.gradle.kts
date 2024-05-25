@@ -71,7 +71,7 @@ tasks.test {
 
 tasks.jacocoTestReport {
 	classDirectories.setFrom(files(classDirectories.files.map {
-		fileTree(it) { }
+		fileTree(it) { exclude("**/*Application**") }
 	}))
 	dependsOn(tasks.test)
 	reports {
