@@ -97,7 +97,7 @@ class AuthenticationServiceTest {
 
         Token token = new Token();
         token.setUser(user);
-        token.setToken("jwtToken");
+        token.setJwtToken("jwtToken");
         token.setTokenType(TokenType.BEARER);
         token.setExpired(false);
         token.setRevoked(false);

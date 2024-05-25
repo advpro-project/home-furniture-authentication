@@ -57,7 +57,7 @@ class JwtAuthenticationFilterTest {
         when(jwtService.extractEmail("validToken")).thenReturn("ayamsigma@example.com");
         when(userDetailsService.loadUserByUsername("ayamsigma@example.com")).thenReturn(userDetails);
         when(jwtService.isTokenValid("validToken", userDetails)).thenReturn(true);
-        when(tokenRepository.findByToken("validToken")).thenReturn(Optional.of(token));
+        when(tokenRepository.findByJwtToken("validToken")).thenReturn(Optional.of(token));
 
         jwtAuthenticationFilter.doFilterInternal(request, response, filterChain);
 
@@ -77,7 +77,7 @@ class JwtAuthenticationFilterTest {
 
         when(request.getHeader("Authorization")).thenReturn("Bearer invalidToken");
         when(jwtService.extractEmail("invalidToken")).thenReturn("ayamsigma@example.com");
-        when(tokenRepository.findByToken("invalidToken")).thenReturn(Optional.of(token));
+        when(tokenRepository.findByJwtToken("invalidToken")).thenReturn(Optional.of(token));
 
         jwtAuthenticationFilter.doFilterInternal(request, response, filterChain);
 
