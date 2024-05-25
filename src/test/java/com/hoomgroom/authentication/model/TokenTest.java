@@ -10,7 +10,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
-public class TokenTest {
+class TokenTest {
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -42,10 +42,10 @@ public class TokenTest {
         Token foundToken = entityManager.find(Token.class, "testToken");
 
         assertNotNull(foundToken);
-        assertEquals("testToken", foundToken.getToken());
+        assertEquals("testToken", foundToken.getJwtToken());
         assertEquals(TokenType.BEARER, foundToken.getTokenType());
-        assertEquals(false, foundToken.isExpired());
-        assertEquals(false, foundToken.isRevoked());
+        assertFalse(foundToken.isExpired());
+        assertFalse(foundToken.isRevoked());
         assertEquals(user, foundToken.getUser());
     }
 }

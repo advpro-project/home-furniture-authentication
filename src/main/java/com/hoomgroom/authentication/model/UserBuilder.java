@@ -17,9 +17,6 @@ public class UserBuilder {
     double walletBalance;
     List<Token> tokens;
 
-    //
-    public UserBuilder() {}
-
     public UserBuilder fullName(String fullName) {
         this.fullName = fullName;
         return this;

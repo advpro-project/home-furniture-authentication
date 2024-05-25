@@ -83,12 +83,12 @@ class UserDataTest {
 
     @Test
     void testEqualsWithNull() {
-        assertFalse(userData.equals(null));
+        assertNotEquals(null, userData);
     }
 
     @Test
     void testEqualsWithDifferentType() {
-        assertFalse(userData.equals("Not a UserData"));
+        assertNotEquals("Not a UserData", userData);
     }
 
     @Test

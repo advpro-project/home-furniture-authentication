@@ -2,7 +2,6 @@ package com.hoomgroom.authentication.controller;
 
 import com.hoomgroom.authentication.dto.LoginRequest;
 import com.hoomgroom.authentication.dto.LoginResponse;
-import com.hoomgroom.authentication.dto.LoginResponseBuilder;
 import com.hoomgroom.authentication.dto.RegisterRequest;
 import com.hoomgroom.authentication.service.AuthenticationService;
 
