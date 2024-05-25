@@ -3,11 +3,12 @@ package com.hoomgroom.authentication.service;
 import com.hoomgroom.authentication.model.User;
 import com.hoomgroom.authentication.model.UserBuilder;
 import com.hoomgroom.authentication.repository.UserRepository;
+
 import enums.Gender;
 import enums.Role;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -19,7 +20,7 @@ public class SeedService {
     @Autowired
     private UserRepository userRepository;
 
-    private static final int SEED_COUNT = 10_000;
+    public static final int SEED_COUNT = 10_000;
     private final Gender[] genders = {Gender.MALE, Gender.FEMALE};
     private final Role[] roles = {Role.ADMIN, Role.PEMBELI};
     private final Random random = new Random();
