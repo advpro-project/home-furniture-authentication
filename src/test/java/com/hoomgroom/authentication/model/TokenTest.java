@@ -26,13 +26,14 @@ public class TokenTest {
         user.setEmail("ayamsigma@example.com");
         user.setFullName("Ayam Sigma");
 
-        Token token = Token.builder()
+        TokenBuilder builder = new TokenBuilder()
                 .token("testToken")
                 .tokenType(TokenType.BEARER)
                 .expired(false)
                 .revoked(false)
-                .user(user)
-                .build();
+                .user(user);
+
+        Token token =builder.build();
 
         entityManager.persist(user);
         entityManager.persist(token);

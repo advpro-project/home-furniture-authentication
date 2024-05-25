@@ -6,7 +6,6 @@ import lombok.*;
 
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -23,4 +22,12 @@ public class Token {
     @ManyToOne
     @JoinColumn(name = "user_email")
     private User user;
+
+    Token(TokenBuilder builder) {
+        this.token = builder.token;
+        this.tokenType = builder.tokenType;
+        this.expired = builder.expired;
+        this.revoked = builder.revoked;
+        this.user = builder.user;
+    }
 }
