@@ -9,13 +9,13 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class UserDataTest {
+class UserDataTest {
 
     private UserData userData;
 
     @BeforeEach
     void setUp() {
-        userData = UserData.builder()
+        userData = new UserDataBuilder()
                 .fullName("Ayam Sigma")
                 .dateOfBirth(LocalDate.of(1990, 5, 15))
                 .gender(Gender.MALE)
@@ -27,7 +27,7 @@ public class UserDataTest {
     }
 
     @Test
-    public void testConstructorAndGetters() {
+    void testConstructorAndGetters() {
         assertEquals("Ayam Sigma", userData.getFullName());
         assertEquals(LocalDate.of(1990, 5, 15), userData.getDateOfBirth());
         assertEquals(Gender.MALE, userData.getGender());
@@ -38,7 +38,7 @@ public class UserDataTest {
     }
 
     @Test
-    public void testSetters() {
+    void testSetters() {
         userData.setFullName("Ayam Omega");
         assertEquals("Ayam Omega", userData.getFullName());
 
@@ -62,13 +62,13 @@ public class UserDataTest {
     }
 
     @Test
-    public void testEqualsSameObject() {
+    void testEqualsSameObject() {
         assertEquals(userData, userData);
     }
 
     @Test
-    public void testEqualsDifferentObjectsWithDifferentValues() {
-        UserData anotherUserData = UserData.builder()
+    void testEqualsDifferentObjectsWithDifferentValues() {
+        UserData anotherUserData = new UserDataBuilder()
                 .fullName("Ayam Omega")
                 .dateOfBirth(LocalDate.of(1995, 10, 20))
                 .gender(Gender.FEMALE)
@@ -82,18 +82,18 @@ public class UserDataTest {
     }
 
     @Test
-    public void testEqualsWithNull() {
+    void testEqualsWithNull() {
         assertFalse(userData.equals(null));
     }
 
     @Test
-    public void testEqualsWithDifferentType() {
+    void testEqualsWithDifferentType() {
         assertFalse(userData.equals("Not a UserData"));
     }
 
     @Test
-    public void testHashCodeDifferentObjects() {
-        UserData anotherUserData = UserData.builder()
+    void testHashCodeDifferentObjects() {
+        UserData anotherUserData = new UserDataBuilder()
                 .fullName("Ayam Omega")
                 .dateOfBirth(LocalDate.of(1995, 10, 20))
                 .gender(Gender.FEMALE)
@@ -107,7 +107,7 @@ public class UserDataTest {
     }
 
     @Test
-    public void testNoArgsConstructor() {
+    void testNoArgsConstructor() {
         UserData newUserData = new UserData();
         assertNull(newUserData.getFullName());
         assertNull(newUserData.getDateOfBirth());

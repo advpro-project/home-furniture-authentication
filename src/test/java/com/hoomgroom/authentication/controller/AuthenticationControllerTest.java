@@ -1,10 +1,6 @@
 package com.hoomgroom.authentication.controller;
 
-import com.hoomgroom.authentication.dto.LoginRequest;
-import com.hoomgroom.authentication.dto.LoginResponse;
-import com.hoomgroom.authentication.dto.RegisterRequest;
-import com.hoomgroom.authentication.dto.UserData;
-import com.hoomgroom.authentication.model.User;
+import com.hoomgroom.authentication.dto.*;
 import com.hoomgroom.authentication.service.AuthenticationService;
 
 import enums.Gender;
@@ -53,7 +49,7 @@ class AuthenticationControllerTest {
     void testLogin() {
         LoginRequest loginRequest = new LoginRequest();
 
-        UserData userData = UserData.builder()
+        UserData userData = new UserDataBuilder()
                 .fullName("dummyName")
                 .dateOfBirth(LocalDate.now())
                 .gender(Gender.MALE)

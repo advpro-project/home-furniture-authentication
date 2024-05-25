@@ -9,7 +9,6 @@ import enums.Role;
 
 @Getter
 @Setter
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserData {
@@ -20,4 +19,14 @@ public class UserData {
     private String email;
     private Role role;
     private double walletBalance;
+
+    UserData(UserDataBuilder builder) {
+        this.fullName = builder.fullName;
+        this.dateOfBirth = builder.dateOfBirth;
+        this.gender = builder.gender;
+        this.username = builder.username;
+        this.email = builder.email;
+        this.role = builder.role;
+        this.walletBalance = builder.walletBalance;
+    }
 }

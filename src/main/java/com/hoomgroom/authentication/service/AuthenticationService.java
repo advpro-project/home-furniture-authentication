@@ -4,7 +4,7 @@ import com.hoomgroom.authentication.dto.LoginRequest;
 import com.hoomgroom.authentication.dto.LoginResponse;
 import com.hoomgroom.authentication.dto.RegisterRequest;
 import com.hoomgroom.authentication.dto.UserData;
-import com.hoomgroom.authentication.model.Token;
+import com.hoomgroom.authentication.dto.UserDataBuilder;
 import com.hoomgroom.authentication.model.TokenBuilder;
 import com.hoomgroom.authentication.model.User;
 import com.hoomgroom.authentication.model.UserBuilder;
@@ -96,7 +96,7 @@ public class AuthenticationService {
     }
 
     private UserData convertToUserData(User user) {
-        return UserData.builder()
+        return new UserDataBuilder()
                 .fullName(user.getFullName())
                 .dateOfBirth(user.getDateOfBirth())
                 .gender(user.getGender())

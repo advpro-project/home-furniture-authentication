@@ -34,7 +34,7 @@ class LoginResponseTest {
 
     @Test
     void testAllArgsConstructor() {
-        UserData userData = UserData.builder()
+        UserData userData = new UserDataBuilder()
                 .fullName("dummyName")
                 .dateOfBirth(LocalDate.now())
                 .gender(Gender.MALE)
