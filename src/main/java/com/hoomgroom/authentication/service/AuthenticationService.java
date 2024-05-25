@@ -38,6 +38,9 @@ public class AuthenticationService {
     @Transactional
     public CompletableFuture<Void> register(RegisterRequest request) {
         return CompletableFuture.runAsync(() -> {
+            if (repository.findByEmail(request.getEmail()).isPresent())
+                throw new IllegalArgumentException("Email sudah terdaftar");
+
             var user = new UserBuilder()
                     .fullName(request.getFullName())
                     .dateOfBirth(LocalDate.parse(request.getDateOfBirth(), DateTimeFormatter.ofPattern("yyyy-MM-dd")))

@@ -27,7 +27,13 @@ public class AuthenticationController {
             @RequestBody RegisterRequest request
     ) {
         return service.register(request)
-                .thenApply(ResponseEntity::ok);
+                .thenApply(ResponseEntity::ok)
+                .exceptionally(e -> {
+                    if (e.getCause() instanceof RuntimeException) {
+                        return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+                    }
+                    return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+                });
     }
 
     @PostMapping("/login")
