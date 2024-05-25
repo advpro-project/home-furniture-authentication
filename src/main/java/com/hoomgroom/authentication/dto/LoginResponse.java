@@ -1,15 +1,17 @@
 package com.hoomgroom.authentication.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
-@Builder
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class LoginResponse {
     private String token;
     private UserData userData;
+
+    LoginResponse(LoginResponseBuilder builder) {
+        this.token = builder.token;
+        this.userData = builder.userData;
+    }
 }

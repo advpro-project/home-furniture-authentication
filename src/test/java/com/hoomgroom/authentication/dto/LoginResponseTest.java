@@ -15,7 +15,7 @@ class LoginResponseTest {
 
     @BeforeEach
     void setUp() {
-        loginResponse = LoginResponse.builder()
+        loginResponse = new LoginResponseBuilder()
                 .token("exampleToken")
                 .build();
     }
@@ -34,7 +34,7 @@ class LoginResponseTest {
 
     @Test
     void testAllArgsConstructor() {
-        UserData userData = UserData.builder()
+        UserData userData = new UserDataBuilder()
                 .fullName("dummyName")
                 .dateOfBirth(LocalDate.now())
                 .gender(Gender.MALE)
@@ -70,17 +70,8 @@ class LoginResponseTest {
     }
 
     @Test
-    void testEqualsDifferentObjectsWithSameValues() {
-        LoginResponse anotherLoginResponse = LoginResponse.builder()
-                .token("exampleToken")
-                .build();
-
-        assertEquals(loginResponse, anotherLoginResponse);
-    }
-
-    @Test
     void testEqualsDifferentObjectsWithDifferentValues() {
-        LoginResponse anotherLoginResponse = LoginResponse.builder()
+        LoginResponse anotherLoginResponse = new LoginResponseBuilder()
                 .token("newToken")
                 .build();
 
@@ -98,37 +89,11 @@ class LoginResponseTest {
     }
 
     @Test
-    void testHashCodeSameObjects() {
-        LoginResponse sameLoginResponse = LoginResponse.builder()
-                .token("exampleToken")
-                .build();
-
-        assertEquals(loginResponse.hashCode(), sameLoginResponse.hashCode());
-    }
-
-    @Test
     void testHashCodeDifferentObjects() {
-        LoginResponse anotherLoginResponse = LoginResponse.builder()
+        LoginResponse anotherLoginResponse = new LoginResponseBuilder()
                 .token("newToken")
                 .build();
 
         assertNotEquals(loginResponse.hashCode(), anotherLoginResponse.hashCode());
-    }
-
-    @Test
-    void testToString() {
-        UserData userData = UserData.builder()
-                .fullName("dummyName")
-                .dateOfBirth(LocalDate.now())
-                .gender(Gender.MALE)
-                .username("dummyUsername")
-                .email("dummyEmail@gmail.com")
-                .role(Role.PEMBELI)
-                .walletBalance(0.0)
-                .build();
-
-        LoginResponse fullLoginResponse = new LoginResponse("exampleToken", userData);
-        String expectedToString = "LoginResponse(token=exampleToken, userData=" + userData.toString() + ")";
-        assertEquals(expectedToString, fullLoginResponse.toString());
     }
 }

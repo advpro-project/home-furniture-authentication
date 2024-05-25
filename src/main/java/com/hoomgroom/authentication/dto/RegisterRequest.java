@@ -1,12 +1,9 @@
 package com.hoomgroom.authentication.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
-@Builder
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class RegisterRequest {
@@ -17,4 +14,14 @@ public class RegisterRequest {
     private String email;
     private String password;
     private String role;
+
+    RegisterRequest(RegisterRequestBuilder builder) {
+        this.fullName = builder.fullName;
+        this.dateOfBirth = builder.dateOfBirth;
+        this.gender = builder.gender;
+        this.username = builder.username;
+        this.email = builder.email;
+        this.password = builder.password;
+        this.role = builder.role;
+    }
 }

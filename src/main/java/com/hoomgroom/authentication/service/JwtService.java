@@ -74,7 +74,6 @@ public class JwtService {
     }
 
     private Claims extractAllClaims(String token) {
-        // Check if the token is already cached
         return tokenCache.computeIfAbsent(token, t -> jwtParser.parseClaimsJws(t).getBody());
     }
 

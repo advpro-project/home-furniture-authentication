@@ -2,9 +2,12 @@ package com.hoomgroom.authentication.service;
 
 import com.hoomgroom.authentication.repository.TokenRepository;
 import com.hoomgroom.authentication.repository.UserRepository;
+
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutHandler;
 import org.springframework.stereotype.Service;

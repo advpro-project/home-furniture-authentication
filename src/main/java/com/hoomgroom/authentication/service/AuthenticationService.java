@@ -1,10 +1,7 @@
 package com.hoomgroom.authentication.service;
 
-import com.hoomgroom.authentication.dto.LoginRequest;
-import com.hoomgroom.authentication.dto.LoginResponse;
-import com.hoomgroom.authentication.dto.RegisterRequest;
-import com.hoomgroom.authentication.dto.UserData;
-import com.hoomgroom.authentication.model.Token;
+import com.hoomgroom.authentication.dto.*;
+import com.hoomgroom.authentication.model.TokenBuilder;
 import com.hoomgroom.authentication.model.User;
 import com.hoomgroom.authentication.model.UserBuilder;
 import com.hoomgroom.authentication.repository.TokenRepository;
@@ -65,7 +62,7 @@ public class AuthenticationService {
             var jwtToken = jwtService.generateToken(user);
             revokeAllUserTokens(user);
             saveUserToken(user, jwtToken);
-            return LoginResponse.builder()
+            return new LoginResponseBuilder()
                     .token(jwtToken)
                     .userData(convertToUserData(user))
                     .build();
@@ -73,7 +70,7 @@ public class AuthenticationService {
     }
 
     private void saveUserToken(User user, String jwtToken) {
-        var token = Token.builder()
+        var token = new TokenBuilder()
                 .user(user)
                 .token(jwtToken)
                 .tokenType(TokenType.BEARER)
@@ -95,7 +92,7 @@ public class AuthenticationService {
     }
 
     private UserData convertToUserData(User user) {
-        return UserData.builder()
+        return new UserDataBuilder()
                 .fullName(user.getFullName())
                 .dateOfBirth(user.getDateOfBirth())
                 .gender(user.getGender())

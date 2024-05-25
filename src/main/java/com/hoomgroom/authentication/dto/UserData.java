@@ -1,17 +1,14 @@
 package com.hoomgroom.authentication.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 
 import enums.Gender;
 import enums.Role;
 
-@Data
-@Builder
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserData {
@@ -22,4 +19,14 @@ public class UserData {
     private String email;
     private Role role;
     private double walletBalance;
+
+    UserData(UserDataBuilder builder) {
+        this.fullName = builder.fullName;
+        this.dateOfBirth = builder.dateOfBirth;
+        this.gender = builder.gender;
+        this.username = builder.username;
+        this.email = builder.email;
+        this.role = builder.role;
+        this.walletBalance = builder.walletBalance;
+    }
 }
