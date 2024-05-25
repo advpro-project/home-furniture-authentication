@@ -15,7 +15,7 @@ class LoginResponseTest {
 
     @BeforeEach
     void setUp() {
-        loginResponse = LoginResponse.builder()
+        loginResponse = new LoginResponseBuilder()
                 .token("exampleToken")
                 .build();
     }
@@ -71,7 +71,7 @@ class LoginResponseTest {
 
     @Test
     void testEqualsDifferentObjectsWithDifferentValues() {
-        LoginResponse anotherLoginResponse = LoginResponse.builder()
+        LoginResponse anotherLoginResponse = new LoginResponseBuilder()
                 .token("newToken")
                 .build();
 
@@ -90,7 +90,7 @@ class LoginResponseTest {
 
     @Test
     void testHashCodeDifferentObjects() {
-        LoginResponse anotherLoginResponse = LoginResponse.builder()
+        LoginResponse anotherLoginResponse = new LoginResponseBuilder()
                 .token("newToken")
                 .build();
 

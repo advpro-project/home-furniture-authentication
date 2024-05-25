@@ -1,10 +1,6 @@
 package com.hoomgroom.authentication.service;
 
-import com.hoomgroom.authentication.dto.LoginRequest;
-import com.hoomgroom.authentication.dto.LoginResponse;
-import com.hoomgroom.authentication.dto.RegisterRequest;
-import com.hoomgroom.authentication.dto.UserData;
-import com.hoomgroom.authentication.dto.UserDataBuilder;
+import com.hoomgroom.authentication.dto.*;
 import com.hoomgroom.authentication.model.TokenBuilder;
 import com.hoomgroom.authentication.model.User;
 import com.hoomgroom.authentication.model.UserBuilder;
@@ -66,7 +62,7 @@ public class AuthenticationService {
             var jwtToken = jwtService.generateToken(user);
             revokeAllUserTokens(user);
             saveUserToken(user, jwtToken);
-            return LoginResponse.builder()
+            return new LoginResponseBuilder()
                     .token(jwtToken)
                     .userData(convertToUserData(user))
                     .build();
