@@ -17,13 +17,17 @@ import java.util.concurrent.CompletableFuture;
 
 @Service
 public class SeedService {
-    @Autowired
-    private UserRepository userRepository;
 
+    private final UserRepository userRepository;
     public static final int SEED_COUNT = 10_000;
     private final Gender[] genders = {Gender.MALE, Gender.FEMALE};
     private final Role[] roles = {Role.ADMIN, Role.PEMBELI};
     private final Random random = new Random();
+
+    @Autowired
+    public SeedService(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Async("asyncExecutor")
     public CompletableFuture<Boolean> seed() {
