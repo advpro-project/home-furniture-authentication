@@ -1,13 +1,18 @@
 package com.hoomgroom.authentication.config;
 
 import com.hoomgroom.authentication.repository.UserRepository;
+
 import enums.Role;
 import enums.Gender;
+
 import com.hoomgroom.authentication.model.User;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -26,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
-public class ApplicationConfigTest {
+class ApplicationConfigTest {
 
     @Mock
     private UserRepository userRepository;
@@ -43,7 +48,7 @@ public class ApplicationConfigTest {
     }
 
     @Test
-    public void testUserDetailsService_UserExists() {
+    void testUserDetailsService_UserExists() {
         User user = new User(
                 "Ayam Sigma",
                 LocalDate.of(1990, 5, 15),
@@ -65,7 +70,7 @@ public class ApplicationConfigTest {
     }
 
     @Test
-    public void testUserDetailsService_UserNotFound() {
+    void testUserDetailsService_UserNotFound() {
         when(userRepository.findByEmail(anyString())).thenReturn(Optional.empty());
 
         UserDetailsService userDetailsService = applicationConfig.userDetailsService();
@@ -76,11 +81,11 @@ public class ApplicationConfigTest {
     }
 
     @Test
-    public void testAuthenticationProvider() {
+    void testAuthenticationProvider() {
         AuthenticationProvider authenticationProvider = applicationConfig.authenticationProvider();
 
         assertNotNull(authenticationProvider);
-        assertTrue(authenticationProvider instanceof DaoAuthenticationProvider);
+        assertInstanceOf(DaoAuthenticationProvider.class, authenticationProvider);
 
         DaoAuthenticationProvider daoAuthenticationProvider = (DaoAuthenticationProvider) authenticationProvider;
         try {
@@ -99,7 +104,7 @@ public class ApplicationConfigTest {
     }
 
     @Test
-    public void testAuthenticationManager() throws Exception {
+    void testAuthenticationManager() throws Exception {
         AuthenticationManager mockManager = org.mockito.Mockito.mock(AuthenticationManager.class);
         when(authenticationConfiguration.getAuthenticationManager()).thenReturn(mockManager);
 
@@ -110,10 +115,10 @@ public class ApplicationConfigTest {
     }
 
     @Test
-    public void testPasswordEncoder() {
+    void testPasswordEncoder() {
         PasswordEncoder passwordEncoder = applicationConfig.passwordEncoder();
 
         assertNotNull(passwordEncoder);
-        assertTrue(passwordEncoder instanceof BCryptPasswordEncoder);
+        assertInstanceOf(BCryptPasswordEncoder.class, passwordEncoder);
     }
 }
