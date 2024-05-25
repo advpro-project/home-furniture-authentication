@@ -11,7 +11,7 @@ class RegisterRequestTest {
 
     @BeforeEach
     void setUp() {
-        registerRequest = RegisterRequest.builder()
+        registerRequest = new RegisterRequestBuilder()
                 .fullName("Ayam Sigma")
                 .dateOfBirth("1990-01-01")
                 .gender("MALE")
@@ -99,7 +99,7 @@ class RegisterRequestTest {
 
     @Test
     void testEqualsDifferentObjectsWithDifferentValues() {
-        RegisterRequest anotherRegisterRequest = RegisterRequest.builder()
+        RegisterRequest anotherRegisterRequest = new RegisterRequestBuilder()
                 .fullName("Ayam Kappa")
                 .dateOfBirth("1991-01-01")
                 .gender("FEMALE")
@@ -130,7 +130,7 @@ class RegisterRequestTest {
 
     @Test
     void testHashCodeForDifferentObjects() {
-        RegisterRequest anotherRegisterRequest = RegisterRequest.builder()
+        RegisterRequest anotherRegisterRequest = new RegisterRequestBuilder()
                 .fullName("Ayam Kappa")
                 .dateOfBirth("1991-01-01")
                 .gender("FEMALE")

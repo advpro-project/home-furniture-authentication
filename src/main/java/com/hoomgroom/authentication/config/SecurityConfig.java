@@ -31,7 +31,8 @@ public class SecurityConfig {
                         "/auth/**",
                         "/",
                         "/actuator",
-                        "/actuator/*"
+                        "/actuator/*",
+                        "/seed"
                 )
                 .permitAll()
                 .anyRequest()

@@ -4,10 +4,14 @@ import lombok.*;
 
 @Getter
 @Setter
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class LoginResponse {
     private String token;
     private UserData userData;
+
+    LoginResponse(LoginResponseBuilder builder) {
+        this.token = builder.token;
+        this.userData = builder.userData;
+    }
 }

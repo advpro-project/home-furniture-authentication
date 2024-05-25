@@ -11,7 +11,7 @@ public class LoginRequestTest {
 
     @BeforeEach
     void setUp() {
-        loginRequest = LoginRequest.builder()
+        loginRequest = new LoginRequestBuilder()
                 .email("ayamsigma@gmail.com")
                 .password("ayamsigma@gmail.com")
                 .build();
@@ -62,7 +62,7 @@ public class LoginRequestTest {
 
     @Test
     public void testEqualsDifferentObjectsWithDifferentValues() {
-        LoginRequest anotherLoginRequest = LoginRequest.builder()
+        LoginRequest anotherLoginRequest = new LoginRequestBuilder()
                 .email("sapisigma@gmail.com")
                 .password("sapisigma@gmail.com")
                 .build();
@@ -82,7 +82,7 @@ public class LoginRequestTest {
 
     @Test
     public void testHashCodeDifferentObjects() {
-        LoginRequest anotherLoginRequest = LoginRequest.builder()
+        LoginRequest anotherLoginRequest = new LoginRequestBuilder()
                 .email("sapisigma@gmail.com")
                 .password("sapisigma@gmail.com")
                 .build();
