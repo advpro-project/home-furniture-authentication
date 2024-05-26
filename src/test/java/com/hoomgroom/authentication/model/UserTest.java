@@ -28,7 +28,6 @@ class UserTest {
                 "ayamsigma@example.com",
                 "password",
                 Role.ADMIN,
-                100.0,
                 new ArrayList<>()
         );
     }
@@ -42,7 +41,6 @@ class UserTest {
         assertEquals("ayamsigma@example.com", user.getEmail());
         assertEquals("password", user.getPassword());
         assertEquals(Role.ADMIN, user.getRole());
-        assertEquals(100.0, user.getWalletBalance());
         assertNotNull(user.getTokens());
     }
 
@@ -69,9 +67,6 @@ class UserTest {
         user.setRole(Role.PEMBELI);
         assertEquals(Role.PEMBELI, user.getRole());
 
-        user.setWalletBalance(200.0);
-        assertEquals(200.0, user.getWalletBalance());
-
         List<Token> tokens = new ArrayList<>();
         user.setTokens(tokens);
         assertEquals(tokens, user.getTokens());
@@ -92,7 +87,6 @@ class UserTest {
                 "ayamomega@example.com",
                 "newpassword",
                 Role.PEMBELI,
-                200.0,
                 new ArrayList<>()
         );
 
@@ -120,7 +114,6 @@ class UserTest {
                 "ayamomega@example.com",
                 "newpassword",
                 Role.PEMBELI,
-                200.0,
                 new ArrayList<>()
         );
 
@@ -164,7 +157,6 @@ class UserTest {
         assertNull(newUser.getEmail());
         assertNull(newUser.getPassword());
         assertNull(newUser.getRole());
-        assertEquals(0.0, newUser.getWalletBalance());
         assertNull(newUser.getTokens());
     }
 
@@ -178,7 +170,6 @@ class UserTest {
                 .email("ayamsigma@example.com")
                 .password("password")
                 .role(Role.ADMIN)
-                .walletBalance(100.0)
                 .tokens(new ArrayList<>());
 
         User builtUser = builder.build();
@@ -190,7 +181,6 @@ class UserTest {
         assertEquals("ayamsigma@example.com", builtUser.getEmail());
         assertEquals("password", builtUser.getPassword());
         assertEquals(Role.ADMIN, builtUser.getRole());
-        assertEquals(100.0, builtUser.getWalletBalance());
         assertNotNull(builtUser.getTokens());
     }
 }

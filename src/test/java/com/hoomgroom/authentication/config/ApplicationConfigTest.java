@@ -57,7 +57,6 @@ class ApplicationConfigTest {
                 "ayamsigma@example.com",
                 "password",
                 Role.ADMIN,
-                100.0,
                 null
         );
         when(userRepository.findByEmail(anyString())).thenReturn(Optional.of(user));

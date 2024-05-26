@@ -50,7 +50,6 @@ public class SeedService {
                         .email(email)
                         .password(password)
                         .role(role)
-                        .walletBalance(walletBalance)
                         .build();
                 userRepository.save(user);
             } catch (IllegalArgumentException e) {

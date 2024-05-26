@@ -46,7 +46,6 @@ class ApplicationControllerTest {
                 .email("dummyEmail@gmail.com")
                 .password("password")
                 .role(Role.PEMBELI)
-                .walletBalance(0.0)
                 .tokens(new ArrayList<>())
                 .build();
 

@@ -52,11 +52,6 @@ public class UserBuilder {
         return this;
     }
 
-    public UserBuilder walletBalance(double walletBalance) {
-        this.walletBalance = walletBalance;
-        return this;
-    }
-
     public UserBuilder tokens(List<Token> tokens) {
         this.tokens = tokens;
         return this;

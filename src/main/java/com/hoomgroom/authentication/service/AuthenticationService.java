@@ -110,7 +110,6 @@ public class AuthenticationService {
                 .username(user.getRealUsername())
                 .email(user.getEmail())
                 .role(user.getRole())
-                .walletBalance(user.getWalletBalance())
                 .build();
     }
 }
