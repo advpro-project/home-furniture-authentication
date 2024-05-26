@@ -34,7 +34,7 @@ public class UserController {
                     .fullName(user.get().getFullName())
                     .dateOfBirth(user.get().getDateOfBirth())
                     .gender(user.get().getGender())
-                    .username(user.get().getUsername())
+                    .username(user.get().getRealUsername())
                     .email(user.get().getEmail())
                     .role(user.get().getRole())
                     .build();
