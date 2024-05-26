@@ -56,7 +56,6 @@ class AuthenticationControllerTest {
                 .username("dummyUsername")
                 .email("dummyEmail@gmail.com")
                 .role(Role.PEMBELI)
-                .walletBalance(0.0)
                 .build();
 
         LoginResponse expectedResponse = new LoginResponse("dummyToken", userData);

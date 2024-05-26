@@ -18,7 +18,6 @@ public class UserData {
     private String username;
     private String email;
     private Role role;
-    private double walletBalance;
 
     UserData(UserDataBuilder builder) {
         this.fullName = builder.fullName;
@@ -27,6 +26,5 @@ public class UserData {
         this.username = builder.username;
         this.email = builder.email;
         this.role = builder.role;
-        this.walletBalance = builder.walletBalance;
     }
 }

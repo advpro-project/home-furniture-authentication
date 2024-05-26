@@ -22,7 +22,6 @@ class UserDataTest {
                 .username("ayamsigma")
                 .email("ayamsigma@example.com")
                 .role(Role.ADMIN)
-                .walletBalance(100.0)
                 .build();
     }
 
@@ -34,7 +33,6 @@ class UserDataTest {
         assertEquals("ayamsigma", userData.getUsername());
         assertEquals("ayamsigma@example.com", userData.getEmail());
         assertEquals(Role.ADMIN, userData.getRole());
-        assertEquals(100.0, userData.getWalletBalance());
     }
 
     @Test
@@ -56,9 +54,6 @@ class UserDataTest {
 
         userData.setRole(Role.PEMBELI);
         assertEquals(Role.PEMBELI, userData.getRole());
-
-        userData.setWalletBalance(200.0);
-        assertEquals(200.0, userData.getWalletBalance());
     }
 
     @Test
@@ -75,7 +70,6 @@ class UserDataTest {
                 .username("ayamomega")
                 .email("ayamomega@example.com")
                 .role(Role.PEMBELI)
-                .walletBalance(200.0)
                 .build();
 
         assertNotEquals(userData, anotherUserData);
@@ -100,7 +94,6 @@ class UserDataTest {
                 .username("ayamomega")
                 .email("ayamomega@example.com")
                 .role(Role.PEMBELI)
-                .walletBalance(200.0)
                 .build();
 
         assertNotEquals(userData.hashCode(), anotherUserData.hashCode());
@@ -115,6 +108,5 @@ class UserDataTest {
         assertNull(newUserData.getUsername());
         assertNull(newUserData.getEmail());
         assertNull(newUserData.getRole());
-        assertEquals(0.0, newUserData.getWalletBalance());
     }
 }

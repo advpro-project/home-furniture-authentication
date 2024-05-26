@@ -41,7 +41,6 @@ class LoginResponseTest {
                 .username("dummyUsername")
                 .email("dummyEmail@gmail.com")
                 .role(Role.PEMBELI)
-                .walletBalance(0.0)
                 .build();
 
         LoginResponse fullLoginResponse = new LoginResponse("exampleToken", userData);
