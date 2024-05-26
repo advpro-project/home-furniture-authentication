@@ -70,7 +70,6 @@ class SeedServiceTest {
             assertNotNull(user.getEmail());
             assertNotNull(user.getPassword());
             assertNotNull(user.getRole());
-            assertTrue(user.getWalletBalance() >= 0);
         }
     }
 }

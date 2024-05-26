@@ -30,7 +30,6 @@ public class User implements UserDetails {
     private String password;
     @Enumerated(EnumType.STRING)
     private Role role;
-    private double walletBalance;
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<Token> tokens;
 
@@ -42,7 +41,6 @@ public class User implements UserDetails {
         this.email = builder.email;
         this.password = builder.password;
         this.role = builder.role;
-        this.walletBalance = builder.walletBalance;
         this.tokens = builder.tokens;
     }
 
