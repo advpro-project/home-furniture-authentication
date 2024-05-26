@@ -12,7 +12,6 @@ public class UserDataBuilder {
     String username;
     String email;
     Role role;
-    double walletBalance;
 
     public UserDataBuilder fullName(String fullName) {
         this.fullName = fullName;
@@ -41,11 +40,6 @@ public class UserDataBuilder {
 
     public UserDataBuilder role(Role role) {
         this.role = role;
-        return this;
-    }
-
-    public UserDataBuilder walletBalance(double walletBalance) {
-        this.walletBalance = walletBalance;
         return this;
     }
 
