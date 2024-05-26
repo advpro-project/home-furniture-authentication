@@ -89,6 +89,8 @@ jobs:
         run: export DOCKER_BUILDKIT=1
       - name: Build Docker Image
         run: |
+          IMAGE_TAG=${{ github.sha }}
+          
           docker build \
               --build-arg PRODUCTION=${{ secrets.PRODUCTION }} \
               --build-arg JDBC_DATABASE_PASSWORD=${{ secrets.JDBC_DATABASE_PASSWORD }} \
@@ -97,7 +99,10 @@ jobs:
               --build-arg SECRET_KEY=${{ secrets.SECRET_KEY }} \
               -t ${{ secrets.REGISTRY_USER }}/${{ secrets.IMAGE_NAME }}:${{ secrets.IMAGE_TAG }} \
               .  
+          
+          docker tag ${{ secrets.REGISTRY_USER }}/${{ secrets.IMAGE_NAME }}:${{ secrets.IMAGE_TAG }} ${{ secrets.REGISTRY_USER }}/${{ secrets.IMAGE_NAME }}:$IMAGE_TAG
           docker push ${{ secrets.REGISTRY_USER }}/${{ secrets.IMAGE_NAME }}:${{ secrets.IMAGE_TAG }}
+          docker push ${{ secrets.REGISTRY_USER }}/${{ secrets.IMAGE_NAME }}:$IMAGE_TAG
 
   deploy:
     name: Deploy to GCP

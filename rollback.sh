@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Variables
-PROJECT_ID="amc"
+PROJECT_ID="amc76"
 IMAGE_NAME="hoomgroom-auth-repo"
-CONTAINER_NAME="container"
+CONTAINER_NAME="hoomgroom-auth-repo"
 VERSION_FILE="current_version.txt"
 
 # Function to rollback to the previous version

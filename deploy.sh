@@ -4,7 +4,7 @@
 PROJECT_ID="amc76"
 IMAGE_NAME="hoomgroom-auth-repo"
 VERSION=$1
-CONTAINER_NAME="container"
+CONTAINER_NAME="hoomgroom-auth-repo"
 VERSION_FILE="current_version.txt"
 UPDATE_VERSION_FILE=$2
 
