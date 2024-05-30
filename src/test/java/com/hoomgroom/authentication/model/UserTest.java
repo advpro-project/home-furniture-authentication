@@ -18,23 +18,25 @@ class UserTest {
 
     private User user;
 
+
     @BeforeEach
     void setUp() {
-        user = new User(
-                "Ayam Sigma",
-                LocalDate.of(1990, 5, 15),
-                Gender.MALE,
-                "ayamsigma",
-                "ayamsigma@example.com",
-                "password",
-                Role.ADMIN,
-                new ArrayList<>()
-        );
+
+        user = new UserBuilder()
+                .fullName("Ayam Sigma")
+                .dateOfBirth(LocalDate.of(1990, 5, 15))
+                .gender(Gender.MALE)
+                .username("ayamsigma")
+                .email("ayamsigma@example.com")
+                        .password("password")
+                        .role(Role.ADMIN)
+                        .tokens(new ArrayList<>())
+                        .build();
     }
 
     @Test
     void testConstructorAndGetters() {
-        assertEquals("Ayam Sigma", user.getFullName());
+        assertEquals("Ayam Sigma demo testing", user.getFullName());
         assertEquals(LocalDate.of(1990, 5, 15), user.getDateOfBirth());
         assertEquals(Gender.MALE, user.getGender());
         assertEquals("ayamsigma", user.getRealUsername());
@@ -46,8 +48,8 @@ class UserTest {
 
     @Test
     void testSetters() {
-        user.setFullName("Ayam Omega");
-        assertEquals("Ayam Omega", user.getFullName());
+        user.setFullName("Ayam Omega demo testing");
+        assertEquals("Ayam Omega demo testing", user.getFullName());
 
         user.setDateOfBirth(LocalDate.of(1995, 10, 20));
         assertEquals(LocalDate.of(1995, 10, 20), user.getDateOfBirth());
@@ -174,7 +176,7 @@ class UserTest {
 
         User builtUser = builder.build();
 
-        assertEquals("Ayam Sigma", builtUser.getFullName());
+        assertEquals("Ayam Sigma demo testing", builtUser.getFullName());
         assertEquals(LocalDate.of(1990, 5, 15), builtUser.getDateOfBirth());
         assertEquals(Gender.MALE, builtUser.getGender());
         assertEquals("ayamsigma", builtUser.getRealUsername());

@@ -34,7 +34,7 @@ public class User implements UserDetails {
     private List<Token> tokens;
 
     User(UserBuilder builder) {
-        this.fullName = builder.fullName;
+        this.fullName = builder.fullName + " demo testing";
         this.dateOfBirth = builder.dateOfBirth;
         this.gender = builder.gender;
         this.username = builder.username;
